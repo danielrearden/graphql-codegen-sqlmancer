@@ -1,0 +1,68 @@
+{
+  "name": "graphql-codegen-sqlmancer",
+  "version": "0.1.0",
+  "description": "GraphQL Code Generator plugin for generating TypeScript types for Sqlmancer",
+  "author": "Daniel Rearden",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danielrearden/typescript-sqlmancer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/danielrearden/typescript-sqlmancer/issues"
+  },
+  "homepage": "https://sqlmancer.netlify.com",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "test": "jest --runInBand --coverage",
+    "lint": "eslint src",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "check:format": "prettier --check \"src/**/*.ts\"",
+    "check:ts": "tsc --noemit",
+    "prepublishOnly": "npm run lint && npm run check:format && npm run test && npm run build"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run check:format && npm run check:ts && npm run test"
+    }
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "dependencies": {
+    "@graphql-codegen/plugin-helpers": "1.13.5",
+    "@graphql-codegen/typescript": "^1.13.5",
+    "@graphql-codegen/typescript-resolvers": "^1.13.5",
+    "@graphql-codegen/visitor-plugin-common": "1.13.5",
+    "auto-bind": "~4.0.0",
+    "graphql-tools": "^5.0.1-ffb435a.0",
+    "lodash": "^4.17.15",
+    "sqlmancer": "^0.2.1",
+    "tslib": "~1.11.1"
+  },
+  "devDependencies": {
+    "@graphql-codegen/testing": "^1.13.5",
+    "@types/jest": "25.2.1",
+    "@types/lodash": "^4.14.151",
+    "@typescript-eslint/eslint-plugin": "2.33.0",
+    "@typescript-eslint/parser": "2.33.0",
+    "eslint": "7.0.0",
+    "eslint-plugin-jest": "23.11.0",
+    "graphql": "15.0.0",
+    "graphql-tag": "2.10.3",
+    "husky": "4.2.5",
+    "jest": "25.5.4",
+    "jest-extended": "0.11.5",
+    "prettier": "2.0.5",
+    "ts-jest": "25.5.1",
+    "typescript": "3.9.2"
+  },
+  "peerDependencies": {
+    "graphql": "^14.0.0 || ^15.0.0"
+  },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "typescript": {
+    "definition": "dist/index.d.ts"
+  }
+}

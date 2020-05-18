@@ -1,0 +1,6683 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sqlmancer Plugin schema with directives Should generate SqlmancerClient and resolver types 1`] = `
+"import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
+export type Maybe<T> = T | null;
+
+
+import {
+  CreateManyBuilder,
+  CreateOneBuilder,
+  DeleteByIdBuilder,
+  DeleteManyBuilder,
+  FindByIdBuilder,
+  FindManyBuilder,
+  FindOneBuilder,
+  PaginateBuilder,
+  UpdateByIdBuilder,
+  UpdateManyBuilder
+} from 'sqlmancer';
+
+import Knex from 'knex';
+
+/** All built-in and custom scalars, mapped to their actual values */
+export type Scalars = {
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
+  DateTime: any;
+  JSON: any;
+  JSONObject: any;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export type Query = {
+   __typename?: 'Query';
+  actors: Array<Actor>;
+  actor?: Maybe<Actor>;
+  actorsPaginated?: Maybe<ActorPage>;
+  films: Array<Film>;
+  film?: Maybe<Film>;
+  filmsPaginated?: Maybe<FilmPage>;
+  customers: Array<Customer>;
+  customer?: Maybe<Customer>;
+  addresses: Array<Address>;
+  address?: Maybe<Address>;
+  movies: Array<Movie>;
+  people: Array<Person>;
+};
+
+
+export type QueryActorsArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<ActorOrderBy>>;
+  where?: Maybe<ActorWhere>;
+};
+
+
+export type QueryActorArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryActorsPaginatedArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<ActorOrderBy>>;
+  where?: Maybe<ActorWhere>;
+};
+
+
+export type QueryFilmsArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  where?: Maybe<FilmWhere>;
+  orderBy?: Maybe<Array<FilmOrderBy>>;
+};
+
+
+export type QueryFilmArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryFilmsPaginatedArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<FilmOrderBy>>;
+  where?: Maybe<FilmWhere>;
+};
+
+
+export type QueryCustomersArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<CustomerOrderBy>>;
+  where?: Maybe<CustomerWhere>;
+};
+
+
+export type QueryCustomerArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryAddressesArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<AddressOrderBy>>;
+  where?: Maybe<AddressWhere>;
+};
+
+
+export type QueryAddressArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryMoviesArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<MovieOrderBy>>;
+  where?: Maybe<MovieWhere>;
+};
+
+
+export type QueryPeopleArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<PersonOrderBy>>;
+  where?: Maybe<PersonWhere>;
+};
+
+export type ActorPage = {
+   __typename?: 'ActorPage';
+  results: Array<Actor>;
+  aggregate: ActorAggregate;
+  hasMore: Scalars['Boolean'];
+};
+
+export type ActorAggregate = {
+   __typename?: 'ActorAggregate';
+  count: Scalars['Int'];
+  min?: Maybe<ActorAggregateMin>;
+  max?: Maybe<ActorAggregateMax>;
+};
+
+export type ActorAggregateMin = {
+   __typename?: 'ActorAggregateMin';
+  id?: Maybe<Scalars['ID']>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  lastUpdate?: Maybe<Scalars['DateTime']>;
+};
+
+export type ActorAggregateMax = {
+   __typename?: 'ActorAggregateMax';
+  id?: Maybe<Scalars['ID']>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  lastUpdate?: Maybe<Scalars['DateTime']>;
+};
+
+export type FilmPage = {
+   __typename?: 'FilmPage';
+  results: Array<Film>;
+  aggregate: FilmAggregate;
+  hasMore: Scalars['Boolean'];
+};
+
+export type FilmAggregate = {
+   __typename?: 'FilmAggregate';
+  count: Scalars['Int'];
+  avg?: Maybe<FilmAggregateAvg>;
+  sum?: Maybe<FilmAggregateSum>;
+  min?: Maybe<FilmAggregateMin>;
+  max?: Maybe<FilmAggregateMax>;
+};
+
+export type FilmAggregateAvg = {
+   __typename?: 'FilmAggregateAvg';
+  releaseYear: Scalars['Float'];
+  length: Scalars['Float'];
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Float'];
+  replacementCost: Scalars['Float'];
+};
+
+export type FilmAggregateSum = {
+   __typename?: 'FilmAggregateSum';
+  releaseYear: Scalars['Float'];
+  length: Scalars['Float'];
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Float'];
+  replacementCost: Scalars['Float'];
+};
+
+export type FilmAggregateMin = {
+   __typename?: 'FilmAggregateMin';
+  id?: Maybe<Scalars['ID']>;
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  releaseYear?: Maybe<Scalars['Int']>;
+  length?: Maybe<Scalars['Int']>;
+  rentalRate?: Maybe<Scalars['Float']>;
+  rentalDuration?: Maybe<Scalars['Int']>;
+  replacementCost?: Maybe<Scalars['Float']>;
+  lastUpdate?: Maybe<Scalars['DateTime']>;
+};
+
+export type FilmAggregateMax = {
+   __typename?: 'FilmAggregateMax';
+  id?: Maybe<Scalars['ID']>;
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  releaseYear?: Maybe<Scalars['Int']>;
+  length?: Maybe<Scalars['Int']>;
+  rentalRate?: Maybe<Scalars['Float']>;
+  rentalDuration?: Maybe<Scalars['Int']>;
+  replacementCost?: Maybe<Scalars['Float']>;
+  lastUpdate?: Maybe<Scalars['DateTime']>;
+};
+
+export type Mutation = {
+   __typename?: 'Mutation';
+  createCustomer?: Maybe<Customer>;
+  createCustomers: Array<Customer>;
+  deleteCustomer: Scalars['Boolean'];
+  deleteCustomers: Scalars['Boolean'];
+  updateCustomer?: Maybe<Customer>;
+  updateCustomers: Array<Customer>;
+};
+
+
+export type MutationCreateCustomerArgs = {
+  input: CreateCustomerInput;
+};
+
+
+export type MutationCreateCustomersArgs = {
+  input: Array<CreateCustomerInput>;
+};
+
+
+export type MutationDeleteCustomerArgs = {
+  id?: Maybe<Scalars['ID']>;
+};
+
+
+export type MutationDeleteCustomersArgs = {
+  where?: Maybe<CustomerWhere>;
+};
+
+
+export type MutationUpdateCustomerArgs = {
+  id?: Maybe<Scalars['ID']>;
+  input: UpdateCustomerInput;
+};
+
+
+export type MutationUpdateCustomersArgs = {
+  where?: Maybe<CustomerWhere>;
+  input: UpdateCustomerInput;
+};
+
+export type Actor = {
+   __typename?: 'Actor';
+  id: Scalars['ID'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  lastUpdate: Scalars['DateTime'];
+  films: Array<Film>;
+  filmsPaginated?: Maybe<FilmPage>;
+};
+
+
+export type ActorFilmsArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<FilmOrderBy>>;
+  where?: Maybe<FilmWhere>;
+};
+
+
+export type ActorFilmsPaginatedArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<FilmOrderBy>>;
+  where?: Maybe<FilmWhere>;
+};
+
+export type Film = {
+   __typename?: 'Film';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  releaseYear: Scalars['Int'];
+  length: Scalars['Int'];
+  rating: FilmRating;
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Int'];
+  replacementCost: Scalars['Float'];
+  specialFeatures: Array<Scalars['String']>;
+  extraData: Scalars['JSON'];
+  lastUpdate: Scalars['DateTime'];
+  actors: Array<Actor>;
+  categories: Array<Category>;
+  actorsPaginated?: Maybe<ActorPage>;
+  language: Language;
+  originalLanguage?: Maybe<Language>;
+  sequel?: Maybe<Film>;
+};
+
+
+export type FilmActorsArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<ActorOrderBy>>;
+  where?: Maybe<ActorWhere>;
+};
+
+
+export type FilmCategoriesArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<CategoryOrderBy>>;
+  where?: Maybe<CategoryWhere>;
+};
+
+
+export type FilmActorsPaginatedArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<ActorOrderBy>>;
+  where?: Maybe<ActorWhere>;
+};
+
+export type Language = {
+   __typename?: 'Language';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  lastUpdate: Scalars['DateTime'];
+  films: Array<Film>;
+  filmsPaginated?: Maybe<FilmPage>;
+};
+
+
+export type LanguageFilmsArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<FilmOrderBy>>;
+  where?: Maybe<FilmWhere>;
+};
+
+
+export type LanguageFilmsPaginatedArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<FilmOrderBy>>;
+  where?: Maybe<FilmWhere>;
+};
+
+export type Customer = {
+   __typename?: 'Customer';
+  id: Scalars['ID'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type CreateCustomerPayload = {
+   __typename?: 'CreateCustomerPayload';
+  customer?: Maybe<Film>;
+  message?: Maybe<Scalars['String']>;
+};
+
+export type Category = {
+   __typename?: 'Category';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  lastUpdate: Scalars['DateTime'];
+  films: Array<Film>;
+};
+
+
+export type CategoryFilmsArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<FilmOrderBy>>;
+  where?: Maybe<FilmWhere>;
+};
+
+export type Address = {
+   __typename?: 'Address';
+  id: Scalars['ID'];
+  addressLine: Scalars['String'];
+  addressLine2?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  country: Scalars['String'];
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type Movie = {
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  releaseYear: Scalars['Int'];
+  length: Scalars['Int'];
+  rating: FilmRating;
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Int'];
+  replacementCost: Scalars['Float'];
+  extraData: Scalars['JSON'];
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type ShortMovie = Movie & {
+   __typename?: 'ShortMovie';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  releaseYear: Scalars['Int'];
+  length: Scalars['Int'];
+  rating: FilmRating;
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Int'];
+  replacementCost: Scalars['Float'];
+  extraData: Scalars['JSON'];
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type LongMovie = Movie & {
+   __typename?: 'LongMovie';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  releaseYear: Scalars['Int'];
+  length: Scalars['Int'];
+  rating: FilmRating;
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Int'];
+  replacementCost: Scalars['Float'];
+  extraData: Scalars['JSON'];
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type Person = Actor | Customer;
+
+export enum FilmRating {
+  G = 'G',
+  PG = 'PG',
+  PG13 = 'PG-13',
+  R = 'R',
+  NC17 = 'NC-17'
+}
+
+export type SqlmancerCustomScalars = {
+  string?: Maybe<Array<Scalars['String']>>;
+  number?: Maybe<Array<Scalars['String']>>;
+  boolean?: Maybe<Array<Scalars['String']>>;
+  JSON?: Maybe<Array<Scalars['String']>>;
+  Date?: Maybe<Array<Scalars['String']>>;
+};
+
+export type SqlmancerJoinOn = {
+  from: Scalars['String'];
+  to: Scalars['String'];
+};
+
+export enum SqlmancerDialect {
+  POSTGRES = 'POSTGRES',
+  MYSQL = 'MYSQL',
+  MARIADB = 'MARIADB',
+  SQLITE = 'SQLITE'
+}
+
+export enum SqlmancerFieldNameTransformation {
+  CAMEL_CASE = 'CAMEL_CASE',
+  PASCAL_CASE = 'PASCAL_CASE',
+  SNAKE_CASE = 'SNAKE_CASE'
+}
+
+export enum SqlmancerAggregateFunction {
+  avg = 'avg',
+  count = 'count',
+  max = 'max',
+  min = 'min',
+  sum = 'sum'
+}
+
+export enum SqlmancerPaginationKind {
+  OFFSET = 'OFFSET'
+}
+
+export enum SqlmancerInputAction {
+  CREATE = 'CREATE',
+  UPDATE = 'UPDATE'
+}
+
+export enum SortDirection {
+  ASC = 'ASC',
+  DESC = 'DESC'
+}
+
+export type ActorOrderBy = {
+  id?: Maybe<SortDirection>;
+  firstName?: Maybe<SortDirection>;
+  lastName?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+  films?: Maybe<FilmOrderByAggregateFieldsOnly>;
+  filmsPaginated?: Maybe<FilmOrderByNested>;
+};
+
+export type FilmWhereVg = {
+  replacementCost?: Maybe<FloatOperators>;
+  rentalDuration?: Maybe<IntOperators>;
+  rentalRate?: Maybe<FloatOperators>;
+  length?: Maybe<IntOperators>;
+  releaseYear?: Maybe<IntOperators>;
+};
+
+export type FilmWhereUm = {
+  replacementCost?: Maybe<FloatOperators>;
+  rentalDuration?: Maybe<IntOperators>;
+  rentalRate?: Maybe<FloatOperators>;
+  length?: Maybe<IntOperators>;
+  releaseYear?: Maybe<IntOperators>;
+};
+
+export type FilmWhereIn = {
+  lastUpdate?: Maybe<DateTimeOperators>;
+  replacementCost?: Maybe<FloatOperators>;
+  rentalDuration?: Maybe<IntOperators>;
+  rentalRate?: Maybe<FloatOperators>;
+  length?: Maybe<IntOperators>;
+  releaseYear?: Maybe<IntOperators>;
+  description?: Maybe<StringOperators>;
+  title?: Maybe<StringOperators>;
+};
+
+export type FilmWhereAx = {
+  lastUpdate?: Maybe<DateTimeOperators>;
+  replacementCost?: Maybe<FloatOperators>;
+  rentalDuration?: Maybe<IntOperators>;
+  rentalRate?: Maybe<FloatOperators>;
+  length?: Maybe<IntOperators>;
+  releaseYear?: Maybe<IntOperators>;
+  description?: Maybe<StringOperators>;
+  title?: Maybe<StringOperators>;
+};
+
+export type FilmOrderByAggregateFieldsOnly = {
+  avg?: Maybe<FilmWhereVg>;
+  sum?: Maybe<FilmWhereUm>;
+  min?: Maybe<FilmWhereIn>;
+  max?: Maybe<FilmWhereAx>;
+  count?: Maybe<SortDirection>;
+};
+
+export type FilmOrderByNested = {
+  id?: Maybe<SortDirection>;
+  title?: Maybe<SortDirection>;
+  description?: Maybe<SortDirection>;
+  releaseYear?: Maybe<SortDirection>;
+  length?: Maybe<SortDirection>;
+  rating?: Maybe<SortDirection>;
+  rentalRate?: Maybe<SortDirection>;
+  rentalDuration?: Maybe<SortDirection>;
+  replacementCost?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+};
+
+export type IdOperators = {
+  equal?: Maybe<Scalars['ID']>;
+  notEqual?: Maybe<Scalars['ID']>;
+  in?: Maybe<Array<Scalars['ID']>>;
+  notIn?: Maybe<Array<Scalars['ID']>>;
+  greaterThan?: Maybe<Scalars['ID']>;
+  greaterThanOrEqual?: Maybe<Scalars['ID']>;
+  lessThan?: Maybe<Scalars['ID']>;
+  lessThanOrEqual?: Maybe<Scalars['ID']>;
+};
+
+export type StringOperators = {
+  equal?: Maybe<Scalars['String']>;
+  notEqual?: Maybe<Scalars['String']>;
+  greaterThan?: Maybe<Scalars['String']>;
+  greaterThanOrEqual?: Maybe<Scalars['String']>;
+  lessThan?: Maybe<Scalars['String']>;
+  lessThanOrEqual?: Maybe<Scalars['String']>;
+  in?: Maybe<Array<Scalars['String']>>;
+  notIn?: Maybe<Array<Scalars['String']>>;
+  like?: Maybe<Scalars['String']>;
+  notLike?: Maybe<Scalars['String']>;
+  iLike?: Maybe<Scalars['String']>;
+  notILike?: Maybe<Scalars['String']>;
+};
+
+export type DateTimeOperators = {
+  equal?: Maybe<Scalars['DateTime']>;
+  notEqual?: Maybe<Scalars['DateTime']>;
+  in?: Maybe<Array<Scalars['DateTime']>>;
+  notIn?: Maybe<Array<Scalars['DateTime']>>;
+  greaterThan?: Maybe<Scalars['DateTime']>;
+  greaterThanOrEqual?: Maybe<Scalars['DateTime']>;
+  lessThan?: Maybe<Scalars['DateTime']>;
+  lessThanOrEqual?: Maybe<Scalars['DateTime']>;
+};
+
+export type ActorWhere = {
+  id?: Maybe<IdOperators>;
+  firstName?: Maybe<StringOperators>;
+  lastName?: Maybe<StringOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<ActorWhere>>;
+  or?: Maybe<Array<ActorWhere>>;
+  not?: Maybe<ActorWhere>;
+  films?: Maybe<FilmWhereWithAggregateFields>;
+  filmsPaginated?: Maybe<FilmWhere>;
+};
+
+export type IntOperators = {
+  equal?: Maybe<Scalars['Int']>;
+  notEqual?: Maybe<Scalars['Int']>;
+  in?: Maybe<Array<Scalars['Int']>>;
+  notIn?: Maybe<Array<Scalars['Int']>>;
+  greaterThan?: Maybe<Scalars['Int']>;
+  greaterThanOrEqual?: Maybe<Scalars['Int']>;
+  lessThan?: Maybe<Scalars['Int']>;
+  lessThanOrEqual?: Maybe<Scalars['Int']>;
+};
+
+export type FilmRatingOperators = {
+  equal?: Maybe<FilmRating>;
+  notEqual?: Maybe<FilmRating>;
+  in?: Maybe<Array<FilmRating>>;
+  notIn?: Maybe<Array<FilmRating>>;
+};
+
+export type FloatOperators = {
+  equal?: Maybe<Scalars['Float']>;
+  notEqual?: Maybe<Scalars['Float']>;
+  in?: Maybe<Array<Scalars['Float']>>;
+  notIn?: Maybe<Array<Scalars['Float']>>;
+  greaterThan?: Maybe<Scalars['Float']>;
+  greaterThanOrEqual?: Maybe<Scalars['Float']>;
+  lessThan?: Maybe<Scalars['Float']>;
+  lessThanOrEqual?: Maybe<Scalars['Float']>;
+};
+
+export type StringListOperators = {
+  equal?: Maybe<Array<Scalars['String']>>;
+  notEqual?: Maybe<Array<Scalars['String']>>;
+  contains?: Maybe<Array<Scalars['String']>>;
+  containedBy?: Maybe<Array<Scalars['String']>>;
+  overlaps?: Maybe<Array<Scalars['String']>>;
+};
+
+export type JsonOperators = {
+  equal?: Maybe<Scalars['String']>;
+  notEqual?: Maybe<Scalars['String']>;
+  contains?: Maybe<Scalars['String']>;
+  containedBy?: Maybe<Scalars['String']>;
+  hasKey?: Maybe<Scalars['String']>;
+  hasAnyKeys?: Maybe<Array<Scalars['String']>>;
+  hasAllKeys?: Maybe<Array<Scalars['String']>>;
+};
+
+export type FilmWhereWithAggregateFields = {
+  id?: Maybe<IdOperators>;
+  title?: Maybe<StringOperators>;
+  description?: Maybe<StringOperators>;
+  releaseYear?: Maybe<IntOperators>;
+  length?: Maybe<IntOperators>;
+  rating?: Maybe<FilmRatingOperators>;
+  rentalRate?: Maybe<FloatOperators>;
+  rentalDuration?: Maybe<IntOperators>;
+  replacementCost?: Maybe<FloatOperators>;
+  specialFeatures?: Maybe<StringListOperators>;
+  extraData?: Maybe<JsonOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<FilmWhere>>;
+  or?: Maybe<Array<FilmWhere>>;
+  not?: Maybe<FilmWhere>;
+  actors?: Maybe<ActorWhereWithAggregateFields>;
+  categories?: Maybe<CategoryWhereWithAggregateFields>;
+  actorsPaginated?: Maybe<ActorWhere>;
+  language?: Maybe<LanguageWhere>;
+  originalLanguage?: Maybe<LanguageWhere>;
+  sequel?: Maybe<FilmWhere>;
+  avg?: Maybe<FilmWhereVg>;
+  sum?: Maybe<FilmWhereUm>;
+  min?: Maybe<FilmWhereIn>;
+  max?: Maybe<FilmWhereAx>;
+  count?: Maybe<IntOperators>;
+};
+
+export type FilmWhere = {
+  id?: Maybe<IdOperators>;
+  title?: Maybe<StringOperators>;
+  description?: Maybe<StringOperators>;
+  releaseYear?: Maybe<IntOperators>;
+  length?: Maybe<IntOperators>;
+  rating?: Maybe<FilmRatingOperators>;
+  rentalRate?: Maybe<FloatOperators>;
+  rentalDuration?: Maybe<IntOperators>;
+  replacementCost?: Maybe<FloatOperators>;
+  specialFeatures?: Maybe<StringListOperators>;
+  extraData?: Maybe<JsonOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<FilmWhere>>;
+  or?: Maybe<Array<FilmWhere>>;
+  not?: Maybe<FilmWhere>;
+  actors?: Maybe<ActorWhereWithAggregateFields>;
+  categories?: Maybe<CategoryWhereWithAggregateFields>;
+  actorsPaginated?: Maybe<ActorWhere>;
+  language?: Maybe<LanguageWhere>;
+  originalLanguage?: Maybe<LanguageWhere>;
+  sequel?: Maybe<FilmWhere>;
+};
+
+export type ActorWhereWithAggregateFields = {
+  id?: Maybe<IdOperators>;
+  firstName?: Maybe<StringOperators>;
+  lastName?: Maybe<StringOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<ActorWhere>>;
+  or?: Maybe<Array<ActorWhere>>;
+  not?: Maybe<ActorWhere>;
+  films?: Maybe<FilmWhereWithAggregateFields>;
+  filmsPaginated?: Maybe<FilmWhere>;
+  min?: Maybe<ActorWhereIn>;
+  max?: Maybe<ActorWhereAx>;
+  count?: Maybe<IntOperators>;
+};
+
+export type ActorWhereIn = {
+  lastUpdate?: Maybe<SortDirection>;
+  lastName?: Maybe<SortDirection>;
+  firstName?: Maybe<SortDirection>;
+};
+
+export type ActorWhereAx = {
+  lastUpdate?: Maybe<SortDirection>;
+  lastName?: Maybe<SortDirection>;
+  firstName?: Maybe<SortDirection>;
+};
+
+export type CategoryWhereWithAggregateFields = {
+  id?: Maybe<IdOperators>;
+  name?: Maybe<StringOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<CategoryWhere>>;
+  or?: Maybe<Array<CategoryWhere>>;
+  not?: Maybe<CategoryWhere>;
+  films?: Maybe<FilmWhereWithAggregateFields>;
+  min?: Maybe<CategoryWhereIn>;
+  max?: Maybe<CategoryWhereAx>;
+  count?: Maybe<IntOperators>;
+};
+
+export type CategoryWhere = {
+  id?: Maybe<IdOperators>;
+  name?: Maybe<StringOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<CategoryWhere>>;
+  or?: Maybe<Array<CategoryWhere>>;
+  not?: Maybe<CategoryWhere>;
+  films?: Maybe<FilmWhereWithAggregateFields>;
+};
+
+export type CategoryWhereIn = {
+  lastUpdate?: Maybe<SortDirection>;
+  name?: Maybe<SortDirection>;
+};
+
+export type CategoryWhereAx = {
+  lastUpdate?: Maybe<SortDirection>;
+  name?: Maybe<SortDirection>;
+};
+
+export type LanguageWhere = {
+  id?: Maybe<IdOperators>;
+  name?: Maybe<StringOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<LanguageWhere>>;
+  or?: Maybe<Array<LanguageWhere>>;
+  not?: Maybe<LanguageWhere>;
+  films?: Maybe<FilmWhereWithAggregateFields>;
+  filmsPaginated?: Maybe<FilmWhere>;
+};
+
+export type FilmOrderBy = {
+  id?: Maybe<SortDirection>;
+  title?: Maybe<SortDirection>;
+  description?: Maybe<SortDirection>;
+  releaseYear?: Maybe<SortDirection>;
+  length?: Maybe<SortDirection>;
+  rating?: Maybe<SortDirection>;
+  rentalRate?: Maybe<SortDirection>;
+  rentalDuration?: Maybe<SortDirection>;
+  replacementCost?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+  actors?: Maybe<ActorOrderByAggregateFieldsOnly>;
+  categories?: Maybe<CategoryOrderByAggregateFieldsOnly>;
+  actorsPaginated?: Maybe<ActorOrderByNested>;
+  language?: Maybe<LanguageOrderByNested>;
+  originalLanguage?: Maybe<LanguageOrderByNested>;
+  sequel?: Maybe<FilmOrderByNested>;
+};
+
+export type ActorOrderByAggregateFieldsOnly = {
+  min?: Maybe<ActorWhereIn>;
+  max?: Maybe<ActorWhereAx>;
+  count?: Maybe<SortDirection>;
+};
+
+export type CategoryOrderByAggregateFieldsOnly = {
+  min?: Maybe<CategoryWhereIn>;
+  max?: Maybe<CategoryWhereAx>;
+  count?: Maybe<SortDirection>;
+};
+
+export type ActorOrderByNested = {
+  id?: Maybe<SortDirection>;
+  firstName?: Maybe<SortDirection>;
+  lastName?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+};
+
+export type LanguageOrderByNested = {
+  id?: Maybe<SortDirection>;
+  name?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+};
+
+export type CustomerOrderBy = {
+  id?: Maybe<SortDirection>;
+  firstName?: Maybe<SortDirection>;
+  lastName?: Maybe<SortDirection>;
+  email?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+};
+
+export type CustomerWhere = {
+  id?: Maybe<IdOperators>;
+  firstName?: Maybe<StringOperators>;
+  lastName?: Maybe<StringOperators>;
+  email?: Maybe<StringOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<CustomerWhere>>;
+  or?: Maybe<Array<CustomerWhere>>;
+  not?: Maybe<CustomerWhere>;
+};
+
+export type AddressOrderBy = {
+  id?: Maybe<SortDirection>;
+  addressLine?: Maybe<SortDirection>;
+  addressLine2?: Maybe<SortDirection>;
+  postalCode?: Maybe<SortDirection>;
+  city?: Maybe<SortDirection>;
+  country?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+};
+
+export type AddressWhere = {
+  id?: Maybe<IdOperators>;
+  addressLine?: Maybe<StringOperators>;
+  addressLine2?: Maybe<StringOperators>;
+  postalCode?: Maybe<StringOperators>;
+  city?: Maybe<StringOperators>;
+  country?: Maybe<StringOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<AddressWhere>>;
+  or?: Maybe<Array<AddressWhere>>;
+  not?: Maybe<AddressWhere>;
+};
+
+export type MovieOrderBy = {
+  id?: Maybe<SortDirection>;
+  title?: Maybe<SortDirection>;
+  description?: Maybe<SortDirection>;
+  releaseYear?: Maybe<SortDirection>;
+  length?: Maybe<SortDirection>;
+  rating?: Maybe<SortDirection>;
+  rentalRate?: Maybe<SortDirection>;
+  rentalDuration?: Maybe<SortDirection>;
+  replacementCost?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+};
+
+export type MovieWhere = {
+  id?: Maybe<IdOperators>;
+  title?: Maybe<StringOperators>;
+  description?: Maybe<StringOperators>;
+  releaseYear?: Maybe<IntOperators>;
+  length?: Maybe<IntOperators>;
+  rating?: Maybe<FilmRatingOperators>;
+  rentalRate?: Maybe<FloatOperators>;
+  rentalDuration?: Maybe<IntOperators>;
+  replacementCost?: Maybe<FloatOperators>;
+  extraData?: Maybe<JsonOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<MovieWhere>>;
+  or?: Maybe<Array<MovieWhere>>;
+  not?: Maybe<MovieWhere>;
+};
+
+export type PersonOrderBy = {
+  id?: Maybe<SortDirection>;
+  firstName?: Maybe<SortDirection>;
+  lastName?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+  email?: Maybe<SortDirection>;
+  films?: Maybe<FilmOrderByAggregateFieldsOnly>;
+  filmsPaginated?: Maybe<FilmOrderByNested>;
+};
+
+export type PersonWhere = {
+  id?: Maybe<IdOperators>;
+  firstName?: Maybe<StringOperators>;
+  lastName?: Maybe<StringOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  email?: Maybe<StringOperators>;
+  and?: Maybe<Array<PersonWhere>>;
+  or?: Maybe<Array<PersonWhere>>;
+  not?: Maybe<PersonWhere>;
+  films?: Maybe<FilmWhereWithAggregateFields>;
+  filmsPaginated?: Maybe<FilmWhere>;
+};
+
+export type CreateCustomerInput = {
+  id?: Maybe<Scalars['ID']>;
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
+  lastUpdate?: Maybe<Scalars['DateTime']>;
+};
+
+export type UpdateCustomerInput = {
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  lastUpdate?: Maybe<Scalars['DateTime']>;
+};
+
+export type CategoryOrderBy = {
+  id?: Maybe<SortDirection>;
+  name?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+  films?: Maybe<FilmOrderByAggregateFieldsOnly>;
+};
+
+
+
+
+export type ResolverTypeWrapper<T> = Promise<T> | T;
+
+
+export type StitchingResolver<TResult, TParent, TContext, TArgs> = {
+  fragment: string;
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
+  | ResolverFn<TResult, TParent, TContext, TArgs>
+  | StitchingResolver<TResult, TParent, TContext, TArgs>;
+
+export type ResolverFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Promise<TResult> | TResult;
+
+export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => AsyncIterator<TResult> | Promise<AsyncIterator<TResult>>;
+
+export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
+  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
+}
+
+export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<any, TParent, TContext, TArgs>;
+  resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
+}
+
+export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
+  | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
+  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
+
+export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
+  | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+  | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
+
+export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
+  parent: TParent,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
+
+export type isTypeOfResolverFn<T = {}> = (obj: T, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
+
+export type NextResolverFn<T> = () => Promise<T>;
+
+export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
+  next: NextResolverFn<TResult>,
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+/** Mapping between all available schema types and the resolvers types */
+export type ResolversTypes = {
+  String: ResolverTypeWrapper<Scalars['String']>,
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']>,
+  JSON: ResolverTypeWrapper<Scalars['JSON']>,
+  JSONObject: ResolverTypeWrapper<Scalars['JSONObject']>,
+  Query: ResolverTypeWrapper<{}>,
+  Int: ResolverTypeWrapper<Scalars['Int']>,
+  ID: ResolverTypeWrapper<Scalars['ID']>,
+  ActorPage: ResolverTypeWrapper<ActorPage>,
+  ActorAggregate: ResolverTypeWrapper<ActorAggregate>,
+  ActorAggregateMin: ResolverTypeWrapper<ActorAggregateMin>,
+  ActorAggregateMax: ResolverTypeWrapper<ActorAggregateMax>,
+  FilmPage: ResolverTypeWrapper<FilmPage>,
+  FilmAggregate: ResolverTypeWrapper<FilmAggregate>,
+  FilmAggregateAvg: ResolverTypeWrapper<FilmAggregateAvg>,
+  Float: ResolverTypeWrapper<Scalars['Float']>,
+  FilmAggregateSum: ResolverTypeWrapper<FilmAggregateSum>,
+  FilmAggregateMin: ResolverTypeWrapper<FilmAggregateMin>,
+  FilmAggregateMax: ResolverTypeWrapper<FilmAggregateMax>,
+  Mutation: ResolverTypeWrapper<{}>,
+  Actor: ResolverTypeWrapper<Actor>,
+  Film: ResolverTypeWrapper<Film>,
+  Language: ResolverTypeWrapper<Language>,
+  Customer: ResolverTypeWrapper<Customer>,
+  CreateCustomerPayload: ResolverTypeWrapper<CreateCustomerPayload>,
+  Category: ResolverTypeWrapper<Category>,
+  Address: ResolverTypeWrapper<Address>,
+  Movie: ResolversTypes['ShortMovie'] | ResolversTypes['LongMovie'],
+  ShortMovie: ResolverTypeWrapper<ShortMovie>,
+  LongMovie: ResolverTypeWrapper<LongMovie>,
+  Person: ResolversTypes['Actor'] | ResolversTypes['Customer'],
+  FilmRating: FilmRating,
+  SqlmancerCustomScalars: SqlmancerCustomScalars,
+  SqlmancerJoinOn: SqlmancerJoinOn,
+  SqlmancerDialect: SqlmancerDialect,
+  SqlmancerFieldNameTransformation: SqlmancerFieldNameTransformation,
+  SqlmancerAggregateFunction: SqlmancerAggregateFunction,
+  SqlmancerPaginationKind: SqlmancerPaginationKind,
+  SqlmancerInputAction: SqlmancerInputAction,
+  SortDirection: SortDirection,
+  ActorOrderBy: ActorOrderBy,
+  FilmWhereVg: FilmWhereVg,
+  FilmWhereUm: FilmWhereUm,
+  FilmWhereIn: FilmWhereIn,
+  FilmWhereAx: FilmWhereAx,
+  FilmOrderByAggregateFieldsOnly: FilmOrderByAggregateFieldsOnly,
+  FilmOrderByNested: FilmOrderByNested,
+  IDOperators: IdOperators,
+  StringOperators: StringOperators,
+  DateTimeOperators: DateTimeOperators,
+  ActorWhere: ActorWhere,
+  IntOperators: IntOperators,
+  FilmRatingOperators: FilmRatingOperators,
+  FloatOperators: FloatOperators,
+  StringListOperators: StringListOperators,
+  JSONOperators: JsonOperators,
+  FilmWhereWithAggregateFields: FilmWhereWithAggregateFields,
+  FilmWhere: FilmWhere,
+  ActorWhereWithAggregateFields: ActorWhereWithAggregateFields,
+  ActorWhereIn: ActorWhereIn,
+  ActorWhereAx: ActorWhereAx,
+  CategoryWhereWithAggregateFields: CategoryWhereWithAggregateFields,
+  CategoryWhere: CategoryWhere,
+  CategoryWhereIn: CategoryWhereIn,
+  CategoryWhereAx: CategoryWhereAx,
+  LanguageWhere: LanguageWhere,
+  FilmOrderBy: FilmOrderBy,
+  ActorOrderByAggregateFieldsOnly: ActorOrderByAggregateFieldsOnly,
+  CategoryOrderByAggregateFieldsOnly: CategoryOrderByAggregateFieldsOnly,
+  ActorOrderByNested: ActorOrderByNested,
+  LanguageOrderByNested: LanguageOrderByNested,
+  CustomerOrderBy: CustomerOrderBy,
+  CustomerWhere: CustomerWhere,
+  AddressOrderBy: AddressOrderBy,
+  AddressWhere: AddressWhere,
+  MovieOrderBy: MovieOrderBy,
+  MovieWhere: MovieWhere,
+  PersonOrderBy: PersonOrderBy,
+  PersonWhere: PersonWhere,
+  CreateCustomerInput: CreateCustomerInput,
+  UpdateCustomerInput: UpdateCustomerInput,
+  CategoryOrderBy: CategoryOrderBy,
+};
+
+/** Mapping between all available schema types and the resolvers parents */
+export type ResolversParentTypes = {
+  String: Scalars['String'],
+  Boolean: Scalars['Boolean'],
+  DateTime: Scalars['DateTime'],
+  JSON: Scalars['JSON'],
+  JSONObject: Scalars['JSONObject'],
+  Query: {},
+  Int: Scalars['Int'],
+  ID: Scalars['ID'],
+  ActorPage: ActorPage,
+  ActorAggregate: ActorAggregate,
+  ActorAggregateMin: ActorAggregateMin,
+  ActorAggregateMax: ActorAggregateMax,
+  FilmPage: FilmPage,
+  FilmAggregate: FilmAggregate,
+  FilmAggregateAvg: FilmAggregateAvg,
+  Float: Scalars['Float'],
+  FilmAggregateSum: FilmAggregateSum,
+  FilmAggregateMin: FilmAggregateMin,
+  FilmAggregateMax: FilmAggregateMax,
+  Mutation: {},
+  Actor: Actor,
+  Film: Film,
+  Language: Language,
+  Customer: Customer,
+  CreateCustomerPayload: CreateCustomerPayload,
+  Category: Category,
+  Address: Address,
+  Movie: ResolversParentTypes['ShortMovie'] | ResolversParentTypes['LongMovie'],
+  ShortMovie: ShortMovie,
+  LongMovie: LongMovie,
+  Person: ResolversParentTypes['Actor'] | ResolversParentTypes['Customer'],
+  FilmRating: FilmRating,
+  SqlmancerCustomScalars: SqlmancerCustomScalars,
+  SqlmancerJoinOn: SqlmancerJoinOn,
+  SqlmancerDialect: SqlmancerDialect,
+  SqlmancerFieldNameTransformation: SqlmancerFieldNameTransformation,
+  SqlmancerAggregateFunction: SqlmancerAggregateFunction,
+  SqlmancerPaginationKind: SqlmancerPaginationKind,
+  SqlmancerInputAction: SqlmancerInputAction,
+  SortDirection: SortDirection,
+  ActorOrderBy: ActorOrderBy,
+  FilmWhereVg: FilmWhereVg,
+  FilmWhereUm: FilmWhereUm,
+  FilmWhereIn: FilmWhereIn,
+  FilmWhereAx: FilmWhereAx,
+  FilmOrderByAggregateFieldsOnly: FilmOrderByAggregateFieldsOnly,
+  FilmOrderByNested: FilmOrderByNested,
+  IDOperators: IdOperators,
+  StringOperators: StringOperators,
+  DateTimeOperators: DateTimeOperators,
+  ActorWhere: ActorWhere,
+  IntOperators: IntOperators,
+  FilmRatingOperators: FilmRatingOperators,
+  FloatOperators: FloatOperators,
+  StringListOperators: StringListOperators,
+  JSONOperators: JsonOperators,
+  FilmWhereWithAggregateFields: FilmWhereWithAggregateFields,
+  FilmWhere: FilmWhere,
+  ActorWhereWithAggregateFields: ActorWhereWithAggregateFields,
+  ActorWhereIn: ActorWhereIn,
+  ActorWhereAx: ActorWhereAx,
+  CategoryWhereWithAggregateFields: CategoryWhereWithAggregateFields,
+  CategoryWhere: CategoryWhere,
+  CategoryWhereIn: CategoryWhereIn,
+  CategoryWhereAx: CategoryWhereAx,
+  LanguageWhere: LanguageWhere,
+  FilmOrderBy: FilmOrderBy,
+  ActorOrderByAggregateFieldsOnly: ActorOrderByAggregateFieldsOnly,
+  CategoryOrderByAggregateFieldsOnly: CategoryOrderByAggregateFieldsOnly,
+  ActorOrderByNested: ActorOrderByNested,
+  LanguageOrderByNested: LanguageOrderByNested,
+  CustomerOrderBy: CustomerOrderBy,
+  CustomerWhere: CustomerWhere,
+  AddressOrderBy: AddressOrderBy,
+  AddressWhere: AddressWhere,
+  MovieOrderBy: MovieOrderBy,
+  MovieWhere: MovieWhere,
+  PersonOrderBy: PersonOrderBy,
+  PersonWhere: PersonWhere,
+  CreateCustomerInput: CreateCustomerInput,
+  UpdateCustomerInput: UpdateCustomerInput,
+  CategoryOrderBy: CategoryOrderBy,
+};
+
+export type ColDirectiveArgs = {   name: Scalars['String']; };
+
+export type ColDirectiveResolver<Result, Parent, ContextType = any, Args = ColDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type DependDirectiveArgs = {   on: Array<Scalars['String']>; };
+
+export type DependDirectiveResolver<Result, Parent, ContextType = any, Args = DependDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type HasDefaultDirectiveArgs = {  };
+
+export type HasDefaultDirectiveResolver<Result, Parent, ContextType = any, Args = HasDefaultDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type InputDirectiveArgs = {   action: SqlmancerInputAction;
+  model?: Maybe<Scalars['String']>;
+  list?: Maybe<Scalars['Boolean']>; };
+
+export type InputDirectiveResolver<Result, Parent, ContextType = any, Args = InputDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type IgnoreDirectiveArgs = {  };
+
+export type IgnoreDirectiveResolver<Result, Parent, ContextType = any, Args = IgnoreDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type LimitDirectiveArgs = {  };
+
+export type LimitDirectiveResolver<Result, Parent, ContextType = any, Args = LimitDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type ManyDirectiveArgs = {   model?: Maybe<Scalars['String']>; };
+
+export type ManyDirectiveResolver<Result, Parent, ContextType = any, Args = ManyDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type ModelDirectiveArgs = {   table?: Maybe<Scalars['String']>;
+  cte?: Maybe<Scalars['String']>;
+  pk: Scalars['String'];
+  readOnly?: Maybe<Scalars['Boolean']>;
+  include?: Maybe<Array<Scalars['String']>>; };
+
+export type ModelDirectiveResolver<Result, Parent, ContextType = any, Args = ModelDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type OffsetDirectiveArgs = {  };
+
+export type OffsetDirectiveResolver<Result, Parent, ContextType = any, Args = OffsetDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type OrderByDirectiveArgs = {   model?: Maybe<Scalars['String']>; };
+
+export type OrderByDirectiveResolver<Result, Parent, ContextType = any, Args = OrderByDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type PaginateDirectiveArgs = {  };
+
+export type PaginateDirectiveResolver<Result, Parent, ContextType = any, Args = PaginateDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type PrivateDirectiveArgs = {  };
+
+export type PrivateDirectiveResolver<Result, Parent, ContextType = any, Args = PrivateDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type RelateDirectiveArgs = {   on: Array<SqlmancerJoinOn>;
+  through?: Maybe<Scalars['String']>;
+  pagination?: Maybe<SqlmancerPaginationKind>; };
+
+export type RelateDirectiveResolver<Result, Parent, ContextType = any, Args = RelateDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type SqlmancerDirectiveArgs = {   dialect: SqlmancerDialect;
+  transformFieldNames?: Maybe<SqlmancerFieldNameTransformation>;
+  customScalars?: Maybe<SqlmancerCustomScalars>; };
+
+export type SqlmancerDirectiveResolver<Result, Parent, ContextType = any, Args = SqlmancerDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type ValueDirectiveArgs = {   is: Scalars['String']; };
+
+export type ValueDirectiveResolver<Result, Parent, ContextType = any, Args = ValueDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type WhereDirectiveArgs = {   model?: Maybe<Scalars['String']>; };
+
+export type WhereDirectiveResolver<Result, Parent, ContextType = any, Args = WhereDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime'
+}
+
+export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
+  name: 'JSON'
+}
+
+export interface JsonObjectScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSONObject'], any> {
+  name: 'JSONObject'
+}
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  actors?: Resolver<Array<ResolversTypes['Actor']>, ParentType, ContextType, RequireFields<QueryActorsArgs, never>>,
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType, RequireFields<QueryActorArgs, 'id'>>,
+  actorsPaginated?: Resolver<Maybe<ResolversTypes['ActorPage']>, ParentType, ContextType, RequireFields<QueryActorsPaginatedArgs, never>>,
+  films?: Resolver<Array<ResolversTypes['Film']>, ParentType, ContextType, RequireFields<QueryFilmsArgs, never>>,
+  film?: Resolver<Maybe<ResolversTypes['Film']>, ParentType, ContextType, RequireFields<QueryFilmArgs, 'id'>>,
+  filmsPaginated?: Resolver<Maybe<ResolversTypes['FilmPage']>, ParentType, ContextType, RequireFields<QueryFilmsPaginatedArgs, never>>,
+  customers?: Resolver<Array<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<QueryCustomersArgs, never>>,
+  customer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<QueryCustomerArgs, 'id'>>,
+  addresses?: Resolver<Array<ResolversTypes['Address']>, ParentType, ContextType, RequireFields<QueryAddressesArgs, never>>,
+  address?: Resolver<Maybe<ResolversTypes['Address']>, ParentType, ContextType, RequireFields<QueryAddressArgs, 'id'>>,
+  movies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<QueryMoviesArgs, never>>,
+  people?: Resolver<Array<ResolversTypes['Person']>, ParentType, ContextType, RequireFields<QueryPeopleArgs, never>>,
+};
+
+export type ActorPageResolvers<ContextType = any, ParentType extends ResolversParentTypes['ActorPage'] = ResolversParentTypes['ActorPage']> = {
+  results?: Resolver<Array<ResolversTypes['Actor']>, ParentType, ContextType>,
+  aggregate?: Resolver<ResolversTypes['ActorAggregate'], ParentType, ContextType>,
+  hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type ActorAggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['ActorAggregate'] = ResolversParentTypes['ActorAggregate']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  min?: Resolver<Maybe<ResolversTypes['ActorAggregateMin']>, ParentType, ContextType>,
+  max?: Resolver<Maybe<ResolversTypes['ActorAggregateMax']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type ActorAggregateMinResolvers<ContextType = any, ParentType extends ResolversParentTypes['ActorAggregateMin'] = ResolversParentTypes['ActorAggregateMin']> = {
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  lastUpdate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type ActorAggregateMaxResolvers<ContextType = any, ParentType extends ResolversParentTypes['ActorAggregateMax'] = ResolversParentTypes['ActorAggregateMax']> = {
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  lastUpdate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type FilmPageResolvers<ContextType = any, ParentType extends ResolversParentTypes['FilmPage'] = ResolversParentTypes['FilmPage']> = {
+  results?: Resolver<Array<ResolversTypes['Film']>, ParentType, ContextType>,
+  aggregate?: Resolver<ResolversTypes['FilmAggregate'], ParentType, ContextType>,
+  hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type FilmAggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['FilmAggregate'] = ResolversParentTypes['FilmAggregate']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  avg?: Resolver<Maybe<ResolversTypes['FilmAggregateAvg']>, ParentType, ContextType>,
+  sum?: Resolver<Maybe<ResolversTypes['FilmAggregateSum']>, ParentType, ContextType>,
+  min?: Resolver<Maybe<ResolversTypes['FilmAggregateMin']>, ParentType, ContextType>,
+  max?: Resolver<Maybe<ResolversTypes['FilmAggregateMax']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type FilmAggregateAvgResolvers<ContextType = any, ParentType extends ResolversParentTypes['FilmAggregateAvg'] = ResolversParentTypes['FilmAggregateAvg']> = {
+  releaseYear?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  length?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  rentalRate?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  rentalDuration?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  replacementCost?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type FilmAggregateSumResolvers<ContextType = any, ParentType extends ResolversParentTypes['FilmAggregateSum'] = ResolversParentTypes['FilmAggregateSum']> = {
+  releaseYear?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  length?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  rentalRate?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  rentalDuration?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  replacementCost?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type FilmAggregateMinResolvers<ContextType = any, ParentType extends ResolversParentTypes['FilmAggregateMin'] = ResolversParentTypes['FilmAggregateMin']> = {
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  releaseYear?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  length?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  rentalRate?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  rentalDuration?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  replacementCost?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  lastUpdate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type FilmAggregateMaxResolvers<ContextType = any, ParentType extends ResolversParentTypes['FilmAggregateMax'] = ResolversParentTypes['FilmAggregateMax']> = {
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  releaseYear?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  length?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  rentalRate?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  rentalDuration?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  replacementCost?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  lastUpdate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createCustomer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationCreateCustomerArgs, 'input'>>,
+  createCustomers?: Resolver<Array<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationCreateCustomersArgs, 'input'>>,
+  deleteCustomer?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteCustomerArgs, never>>,
+  deleteCustomers?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteCustomersArgs, never>>,
+  updateCustomer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationUpdateCustomerArgs, 'input'>>,
+  updateCustomers?: Resolver<Array<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationUpdateCustomersArgs, 'input'>>,
+};
+
+export type ActorResolvers<ContextType = any, ParentType extends ResolversParentTypes['Actor'] = ResolversParentTypes['Actor']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  films?: Resolver<Array<ResolversTypes['Film']>, ParentType, ContextType, RequireFields<ActorFilmsArgs, never>>,
+  filmsPaginated?: Resolver<Maybe<ResolversTypes['FilmPage']>, ParentType, ContextType, RequireFields<ActorFilmsPaginatedArgs, never>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type FilmResolvers<ContextType = any, ParentType extends ResolversParentTypes['Film'] = ResolversParentTypes['Film']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  releaseYear?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  length?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  rating?: Resolver<ResolversTypes['FilmRating'], ParentType, ContextType>,
+  rentalRate?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  rentalDuration?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  replacementCost?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  specialFeatures?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
+  extraData?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  actors?: Resolver<Array<ResolversTypes['Actor']>, ParentType, ContextType, RequireFields<FilmActorsArgs, never>>,
+  categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<FilmCategoriesArgs, never>>,
+  actorsPaginated?: Resolver<Maybe<ResolversTypes['ActorPage']>, ParentType, ContextType, RequireFields<FilmActorsPaginatedArgs, never>>,
+  language?: Resolver<ResolversTypes['Language'], ParentType, ContextType>,
+  originalLanguage?: Resolver<Maybe<ResolversTypes['Language']>, ParentType, ContextType>,
+  sequel?: Resolver<Maybe<ResolversTypes['Film']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type LanguageResolvers<ContextType = any, ParentType extends ResolversParentTypes['Language'] = ResolversParentTypes['Language']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  films?: Resolver<Array<ResolversTypes['Film']>, ParentType, ContextType, RequireFields<LanguageFilmsArgs, never>>,
+  filmsPaginated?: Resolver<Maybe<ResolversTypes['FilmPage']>, ParentType, ContextType, RequireFields<LanguageFilmsPaginatedArgs, never>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CustomerResolvers<ContextType = any, ParentType extends ResolversParentTypes['Customer'] = ResolversParentTypes['Customer']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CreateCustomerPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateCustomerPayload'] = ResolversParentTypes['CreateCustomerPayload']> = {
+  customer?: Resolver<Maybe<ResolversTypes['Film']>, ParentType, ContextType>,
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CategoryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  films?: Resolver<Array<ResolversTypes['Film']>, ParentType, ContextType, RequireFields<CategoryFilmsArgs, never>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type AddressResolvers<ContextType = any, ParentType extends ResolversParentTypes['Address'] = ResolversParentTypes['Address']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  addressLine?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  addressLine2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  postalCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  country?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type MovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['Movie'] = ResolversParentTypes['Movie']> = {
+  __resolveType: TypeResolveFn<'ShortMovie' | 'LongMovie', ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  releaseYear?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  length?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  rating?: Resolver<ResolversTypes['FilmRating'], ParentType, ContextType>,
+  rentalRate?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  rentalDuration?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  replacementCost?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  extraData?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+};
+
+export type ShortMovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['ShortMovie'] = ResolversParentTypes['ShortMovie']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  releaseYear?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  length?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  rating?: Resolver<ResolversTypes['FilmRating'], ParentType, ContextType>,
+  rentalRate?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  rentalDuration?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  replacementCost?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  extraData?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type LongMovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['LongMovie'] = ResolversParentTypes['LongMovie']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  releaseYear?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  length?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  rating?: Resolver<ResolversTypes['FilmRating'], ParentType, ContextType>,
+  rentalRate?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  rentalDuration?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  replacementCost?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  extraData?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type PersonResolvers<ContextType = any, ParentType extends ResolversParentTypes['Person'] = ResolversParentTypes['Person']> = {
+  __resolveType: TypeResolveFn<'Actor' | 'Customer', ParentType, ContextType>
+};
+
+export type Resolvers<ContextType = any> = {
+  DateTime?: GraphQLScalarType,
+  JSON?: GraphQLScalarType,
+  JSONObject?: GraphQLScalarType,
+  Query?: QueryResolvers<ContextType>,
+  ActorPage?: ActorPageResolvers<ContextType>,
+  ActorAggregate?: ActorAggregateResolvers<ContextType>,
+  ActorAggregateMin?: ActorAggregateMinResolvers<ContextType>,
+  ActorAggregateMax?: ActorAggregateMaxResolvers<ContextType>,
+  FilmPage?: FilmPageResolvers<ContextType>,
+  FilmAggregate?: FilmAggregateResolvers<ContextType>,
+  FilmAggregateAvg?: FilmAggregateAvgResolvers<ContextType>,
+  FilmAggregateSum?: FilmAggregateSumResolvers<ContextType>,
+  FilmAggregateMin?: FilmAggregateMinResolvers<ContextType>,
+  FilmAggregateMax?: FilmAggregateMaxResolvers<ContextType>,
+  Mutation?: MutationResolvers<ContextType>,
+  Actor?: ActorResolvers<ContextType>,
+  Film?: FilmResolvers<ContextType>,
+  Language?: LanguageResolvers<ContextType>,
+  Customer?: CustomerResolvers<ContextType>,
+  CreateCustomerPayload?: CreateCustomerPayloadResolvers<ContextType>,
+  Category?: CategoryResolvers<ContextType>,
+  Address?: AddressResolvers<ContextType>,
+  Movie?: MovieResolvers,
+  ShortMovie?: ShortMovieResolvers<ContextType>,
+  LongMovie?: LongMovieResolvers<ContextType>,
+  Person?: PersonResolvers,
+};
+
+
+/**
+ * @deprecated
+ * Use \\"Resolvers\\" root object instead. If you wish to get \\"IResolvers\\", add \\"typesPrefix: I\\" to your config.
+ */
+export type IResolvers<ContextType = any> = Resolvers<ContextType>;
+export type DirectiveResolvers<ContextType = any> = {
+  col?: ColDirectiveResolver<any, any, ContextType>,
+  depend?: DependDirectiveResolver<any, any, ContextType>,
+  hasDefault?: HasDefaultDirectiveResolver<any, any, ContextType>,
+  input?: InputDirectiveResolver<any, any, ContextType>,
+  ignore?: IgnoreDirectiveResolver<any, any, ContextType>,
+  limit?: LimitDirectiveResolver<any, any, ContextType>,
+  many?: ManyDirectiveResolver<any, any, ContextType>,
+  model?: ModelDirectiveResolver<any, any, ContextType>,
+  offset?: OffsetDirectiveResolver<any, any, ContextType>,
+  orderBy?: OrderByDirectiveResolver<any, any, ContextType>,
+  paginate?: PaginateDirectiveResolver<any, any, ContextType>,
+  private?: PrivateDirectiveResolver<any, any, ContextType>,
+  relate?: RelateDirectiveResolver<any, any, ContextType>,
+  sqlmancer?: SqlmancerDirectiveResolver<any, any, ContextType>,
+  value?: ValueDirectiveResolver<any, any, ContextType>,
+  where?: WhereDirectiveResolver<any, any, ContextType>,
+};
+
+
+/**
+ * @deprecated
+ * Use \\"DirectiveResolvers\\" root object instead. If you wish to get \\"IDirectiveResolvers\\", add \\"typesPrefix: I\\" to your config.
+ */
+export type IDirectiveResolvers<ContextType = any> = DirectiveResolvers<ContextType>;
+
+
+
+export type ID = number | string;
+
+export type JSON = boolean | number | string | null | JSONArray | JSONObject;
+
+export interface JSONObject {
+  [key: string]: JSON;
+}
+
+export type JSONArray = Array<JSON>;
+
+export type ActorFields = {
+  id: ID;
+  firstName: string;
+  lastName: string;
+  lastUpdate: string;
+}
+
+export type ActorIds = 'id';
+
+export type ActorEnums = unknown;
+
+export type ActorAssociations = {
+  films: [FilmFindManyBuilder, FilmPaginateBuilder];
+  filmsPaginated: [FilmPageFindOneBuilder, FilmPagePaginateBuilder];
+}
+
+export type ActorCreateFields = {
+  id?: ID;
+  firstName: string;
+  lastName: string;
+  lastUpdate?: Date | string;
+};
+
+export type ActorUpdateFields = {
+  firstName?: string;
+  lastName?: string;
+  lastUpdate?: Date | string;
+};
+
+export type ActorFindOneBuilder<TSelected extends Pick<ActorFields, any> = ActorFields> = FindOneBuilder<
+  'postgres',
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations,
+  TSelected
+>;
+
+export type ActorFindManyBuilder<TSelected extends Pick<ActorFields, any> = ActorFields> = FindManyBuilder<
+  'postgres',
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations,
+  TSelected
+>;
+
+export type ActorFindByIdBuilder<TSelected extends Pick<ActorFields, any> = ActorFields> = FindByIdBuilder<
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations,
+  TSelected
+>;
+
+export type ActorPaginateBuilder = PaginateBuilder<
+  'postgres',
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations
+>;
+
+export type ActorDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations
+>;
+
+export type ActorDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type ActorCreateManyBuilder = CreateManyBuilder<ActorCreateFields>;
+
+export type ActorCreateOneBuilder = CreateOneBuilder<ActorCreateFields>;
+
+export type ActorUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  ActorUpdateFields,
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations
+>;
+
+export type ActorUpdateByIdBuilder = UpdateByIdBuilder<ActorUpdateFields>;
+
+export type FilmFields = {
+  id: ID;
+  title: string;
+  description: string;
+  releaseYear: number;
+  length: number;
+  rating: FilmRating;
+  rentalRate: number;
+  rentalDuration: number;
+  replacementCost: number;
+  specialFeatures: string[];
+  extraData: JSON;
+  lastUpdate: string;
+}
+
+export type FilmIds = 'id';
+
+export type FilmEnums = FilmRating;
+
+export type FilmAssociations = {
+  actors: [ActorFindManyBuilder, ActorPaginateBuilder];
+  categories: [CategoryFindManyBuilder, CategoryPaginateBuilder];
+  actorsPaginated: [ActorPageFindOneBuilder, ActorPagePaginateBuilder];
+  language: [LanguageFindOneBuilder, LanguagePaginateBuilder];
+  originalLanguage: [LanguageFindOneBuilder, LanguagePaginateBuilder];
+  sequel: [FilmFindOneBuilder, FilmPaginateBuilder];
+}
+
+export type FilmCreateFields = {
+  id?: ID;
+  title: string;
+  description: string;
+  releaseYear: number;
+  length: number;
+  rating: FilmRating;
+  rentalRate: number;
+  rentalDuration: number;
+  replacementCost: number;
+  specialFeatures: string[];
+  extraData: JSON;
+  lastUpdate?: Date | string;
+};
+
+export type FilmUpdateFields = {
+  title?: string;
+  description?: string;
+  releaseYear?: number;
+  length?: number;
+  rating?: FilmRating;
+  rentalRate?: number;
+  rentalDuration?: number;
+  replacementCost?: number;
+  specialFeatures?: string[];
+  extraData?: JSON;
+  lastUpdate?: Date | string;
+};
+
+export type FilmFindOneBuilder<TSelected extends Pick<FilmFields, any> = FilmFields> = FindOneBuilder<
+  'postgres',
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations,
+  TSelected
+>;
+
+export type FilmFindManyBuilder<TSelected extends Pick<FilmFields, any> = FilmFields> = FindManyBuilder<
+  'postgres',
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations,
+  TSelected
+>;
+
+export type FilmFindByIdBuilder<TSelected extends Pick<FilmFields, any> = FilmFields> = FindByIdBuilder<
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations,
+  TSelected
+>;
+
+export type FilmPaginateBuilder = PaginateBuilder<
+  'postgres',
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations
+>;
+
+export type FilmDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations
+>;
+
+export type FilmDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type FilmCreateManyBuilder = CreateManyBuilder<FilmCreateFields>;
+
+export type FilmCreateOneBuilder = CreateOneBuilder<FilmCreateFields>;
+
+export type FilmUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  FilmUpdateFields,
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations
+>;
+
+export type FilmUpdateByIdBuilder = UpdateByIdBuilder<FilmUpdateFields>;
+
+export type LanguageFields = {
+  id: ID;
+  name: string;
+  lastUpdate: string;
+}
+
+export type LanguageIds = 'id';
+
+export type LanguageEnums = unknown;
+
+export type LanguageAssociations = {
+  films: [FilmFindManyBuilder, FilmPaginateBuilder];
+  filmsPaginated: [FilmPageFindOneBuilder, FilmPagePaginateBuilder];
+}
+
+export type LanguageCreateFields = {
+  id?: ID;
+  name: string;
+  lastUpdate?: Date | string;
+};
+
+export type LanguageUpdateFields = {
+  name?: string;
+  lastUpdate?: Date | string;
+};
+
+export type LanguageFindOneBuilder<TSelected extends Pick<LanguageFields, any> = LanguageFields> = FindOneBuilder<
+  'postgres',
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations,
+  TSelected
+>;
+
+export type LanguageFindManyBuilder<TSelected extends Pick<LanguageFields, any> = LanguageFields> = FindManyBuilder<
+  'postgres',
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations,
+  TSelected
+>;
+
+export type LanguageFindByIdBuilder<TSelected extends Pick<LanguageFields, any> = LanguageFields> = FindByIdBuilder<
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations,
+  TSelected
+>;
+
+export type LanguagePaginateBuilder = PaginateBuilder<
+  'postgres',
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations
+>;
+
+export type LanguageDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations
+>;
+
+export type LanguageDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type LanguageCreateManyBuilder = CreateManyBuilder<LanguageCreateFields>;
+
+export type LanguageCreateOneBuilder = CreateOneBuilder<LanguageCreateFields>;
+
+export type LanguageUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  LanguageUpdateFields,
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations
+>;
+
+export type LanguageUpdateByIdBuilder = UpdateByIdBuilder<LanguageUpdateFields>;
+
+export type CustomerFields = {
+  id: ID;
+  firstName: string;
+  lastName: string;
+  email: string;
+  lastUpdate: string;
+}
+
+export type CustomerIds = 'id';
+
+export type CustomerEnums = unknown;
+
+export type CustomerAssociations = {
+
+}
+
+export type CustomerCreateFields = {
+  id?: ID;
+  firstName: string;
+  lastName: string;
+  email?: string;
+  lastUpdate?: Date | string;
+};
+
+export type CustomerUpdateFields = {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  lastUpdate?: Date | string;
+};
+
+export type CustomerFindOneBuilder<TSelected extends Pick<CustomerFields, any> = CustomerFields> = FindOneBuilder<
+  'postgres',
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations,
+  TSelected
+>;
+
+export type CustomerFindManyBuilder<TSelected extends Pick<CustomerFields, any> = CustomerFields> = FindManyBuilder<
+  'postgres',
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations,
+  TSelected
+>;
+
+export type CustomerFindByIdBuilder<TSelected extends Pick<CustomerFields, any> = CustomerFields> = FindByIdBuilder<
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations,
+  TSelected
+>;
+
+export type CustomerPaginateBuilder = PaginateBuilder<
+  'postgres',
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations
+>;
+
+export type CustomerDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations
+>;
+
+export type CustomerDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type CustomerCreateManyBuilder = CreateManyBuilder<CustomerCreateFields>;
+
+export type CustomerCreateOneBuilder = CreateOneBuilder<CustomerCreateFields>;
+
+export type CustomerUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  CustomerUpdateFields,
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations
+>;
+
+export type CustomerUpdateByIdBuilder = UpdateByIdBuilder<CustomerUpdateFields>;
+
+export type CategoryFields = {
+  id: ID;
+  name: string;
+  lastUpdate: string;
+}
+
+export type CategoryIds = 'id';
+
+export type CategoryEnums = unknown;
+
+export type CategoryAssociations = {
+  films: [FilmFindManyBuilder, FilmPaginateBuilder];
+}
+
+export type CategoryCreateFields = {
+  id?: ID;
+  name: string;
+  lastUpdate?: Date | string;
+};
+
+export type CategoryUpdateFields = {
+  name?: string;
+  lastUpdate?: Date | string;
+};
+
+export type CategoryFindOneBuilder<TSelected extends Pick<CategoryFields, any> = CategoryFields> = FindOneBuilder<
+  'postgres',
+  CategoryFields,
+  CategoryIds,
+  CategoryEnums,
+  CategoryAssociations,
+  TSelected
+>;
+
+export type CategoryFindManyBuilder<TSelected extends Pick<CategoryFields, any> = CategoryFields> = FindManyBuilder<
+  'postgres',
+  CategoryFields,
+  CategoryIds,
+  CategoryEnums,
+  CategoryAssociations,
+  TSelected
+>;
+
+export type CategoryFindByIdBuilder<TSelected extends Pick<CategoryFields, any> = CategoryFields> = FindByIdBuilder<
+  CategoryFields,
+  CategoryIds,
+  CategoryEnums,
+  CategoryAssociations,
+  TSelected
+>;
+
+export type CategoryPaginateBuilder = PaginateBuilder<
+  'postgres',
+  CategoryFields,
+  CategoryIds,
+  CategoryEnums,
+  CategoryAssociations
+>;
+
+export type AddressFields = {
+  id: ID;
+  addressLine: string;
+  addressLine2: string;
+  postalCode: string;
+  city: string;
+  country: string;
+  lastUpdate: string;
+}
+
+export type AddressIds = 'id';
+
+export type AddressEnums = unknown;
+
+export type AddressAssociations = {
+
+}
+
+export type AddressCreateFields = {
+  id: ID;
+  addressLine: string;
+  addressLine2?: string;
+  postalCode?: string;
+  city: string;
+  country: string;
+  lastUpdate: Date | string;
+};
+
+export type AddressUpdateFields = {
+  addressLine?: string;
+  addressLine2?: string;
+  postalCode?: string;
+  city?: string;
+  country?: string;
+  lastUpdate?: Date | string;
+};
+
+export type AddressFindOneBuilder<TSelected extends Pick<AddressFields, any> = AddressFields> = FindOneBuilder<
+  'postgres',
+  AddressFields,
+  AddressIds,
+  AddressEnums,
+  AddressAssociations,
+  TSelected
+>;
+
+export type AddressFindManyBuilder<TSelected extends Pick<AddressFields, any> = AddressFields> = FindManyBuilder<
+  'postgres',
+  AddressFields,
+  AddressIds,
+  AddressEnums,
+  AddressAssociations,
+  TSelected
+>;
+
+export type AddressFindByIdBuilder<TSelected extends Pick<AddressFields, any> = AddressFields> = FindByIdBuilder<
+  AddressFields,
+  AddressIds,
+  AddressEnums,
+  AddressAssociations,
+  TSelected
+>;
+
+export type AddressPaginateBuilder = PaginateBuilder<
+  'postgres',
+  AddressFields,
+  AddressIds,
+  AddressEnums,
+  AddressAssociations
+>;
+
+export type MovieFields = {
+  id: ID;
+  title: string;
+  description: string;
+  releaseYear: number;
+  length: number;
+  rating: FilmRating;
+  rentalRate: number;
+  rentalDuration: number;
+  replacementCost: number;
+  extraData: JSON;
+  lastUpdate: string;
+}
+
+export type MovieIds = 'id';
+
+export type MovieEnums = FilmRating;
+
+export type MovieAssociations = {
+
+}
+
+export type MovieCreateFields = {
+  id?: ID;
+  title: string;
+  description: string;
+  releaseYear: number;
+  length: number;
+  rating: FilmRating;
+  rentalRate: number;
+  rentalDuration: number;
+  replacementCost: number;
+  extraData: JSON;
+  lastUpdate?: Date | string;
+};
+
+export type MovieUpdateFields = {
+  title?: string;
+  description?: string;
+  releaseYear?: number;
+  length?: number;
+  rating?: FilmRating;
+  rentalRate?: number;
+  rentalDuration?: number;
+  replacementCost?: number;
+  extraData?: JSON;
+  lastUpdate?: Date | string;
+};
+
+export type MovieFindOneBuilder<TSelected extends Pick<MovieFields, any> = MovieFields> = FindOneBuilder<
+  'postgres',
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations,
+  TSelected
+>;
+
+export type MovieFindManyBuilder<TSelected extends Pick<MovieFields, any> = MovieFields> = FindManyBuilder<
+  'postgres',
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations,
+  TSelected
+>;
+
+export type MovieFindByIdBuilder<TSelected extends Pick<MovieFields, any> = MovieFields> = FindByIdBuilder<
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations,
+  TSelected
+>;
+
+export type MoviePaginateBuilder = PaginateBuilder<
+  'postgres',
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations
+>;
+
+export type MovieDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations
+>;
+
+export type MovieDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type MovieCreateManyBuilder = CreateManyBuilder<MovieCreateFields>;
+
+export type MovieCreateOneBuilder = CreateOneBuilder<MovieCreateFields>;
+
+export type MovieUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  MovieUpdateFields,
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations
+>;
+
+export type MovieUpdateByIdBuilder = UpdateByIdBuilder<MovieUpdateFields>;
+
+export type PersonFields = {
+  id: ID;
+  firstName: string;
+  lastName: string;
+  lastUpdate: string;
+  email: string;
+}
+
+export type PersonIds = 'id';
+
+export type PersonEnums = unknown;
+
+export type PersonAssociations = {
+  films: [FilmFindManyBuilder, FilmPaginateBuilder];
+  filmsPaginated: [FilmPageFindOneBuilder, FilmPagePaginateBuilder];
+}
+
+export type PersonCreateFields = {
+  id?: ID;
+  firstName: string;
+  lastName: string;
+  lastUpdate?: Date | string;
+  email?: string;
+};
+
+export type PersonUpdateFields = {
+  firstName?: string;
+  lastName?: string;
+  lastUpdate?: Date | string;
+  email?: string;
+};
+
+export type PersonFindOneBuilder<TSelected extends Pick<PersonFields, any> = PersonFields> = FindOneBuilder<
+  'postgres',
+  PersonFields,
+  PersonIds,
+  PersonEnums,
+  PersonAssociations,
+  TSelected
+>;
+
+export type PersonFindManyBuilder<TSelected extends Pick<PersonFields, any> = PersonFields> = FindManyBuilder<
+  'postgres',
+  PersonFields,
+  PersonIds,
+  PersonEnums,
+  PersonAssociations,
+  TSelected
+>;
+
+export type PersonFindByIdBuilder<TSelected extends Pick<PersonFields, any> = PersonFields> = FindByIdBuilder<
+  PersonFields,
+  PersonIds,
+  PersonEnums,
+  PersonAssociations,
+  TSelected
+>;
+
+export type PersonPaginateBuilder = PaginateBuilder<
+  'postgres',
+  PersonFields,
+  PersonIds,
+  PersonEnums,
+  PersonAssociations
+>;
+
+export type SqlmancerClient = Knex & {
+  models: {
+    Actor: {
+      findById: (id: ID) => ActorFindByIdBuilder;
+      findMany: () => ActorFindManyBuilder;
+      findOne: () => ActorFindOneBuilder;
+      paginate: () => ActorPaginateBuilder;
+      createMany: (input: ActorCreateFields[]) => ActorCreateManyBuilder;
+      createOne: (input: ActorCreateFields) => ActorCreateOneBuilder;
+      deleteById: (id: ID) => ActorDeleteByIdBuilder;
+      deleteMany: () => ActorDeleteManyBuilder;
+      updateById: (id: ID, input: ActorUpdateFields) => ActorUpdateByIdBuilder;
+      updateMany: (input: ActorUpdateFields) => ActorUpdateManyBuilder;
+    };
+    Film: {
+      findById: (id: ID) => FilmFindByIdBuilder;
+      findMany: () => FilmFindManyBuilder;
+      findOne: () => FilmFindOneBuilder;
+      paginate: () => FilmPaginateBuilder;
+      createMany: (input: FilmCreateFields[]) => FilmCreateManyBuilder;
+      createOne: (input: FilmCreateFields) => FilmCreateOneBuilder;
+      deleteById: (id: ID) => FilmDeleteByIdBuilder;
+      deleteMany: () => FilmDeleteManyBuilder;
+      updateById: (id: ID, input: FilmUpdateFields) => FilmUpdateByIdBuilder;
+      updateMany: (input: FilmUpdateFields) => FilmUpdateManyBuilder;
+    };
+    Language: {
+      findById: (id: ID) => LanguageFindByIdBuilder;
+      findMany: () => LanguageFindManyBuilder;
+      findOne: () => LanguageFindOneBuilder;
+      paginate: () => LanguagePaginateBuilder;
+      createMany: (input: LanguageCreateFields[]) => LanguageCreateManyBuilder;
+      createOne: (input: LanguageCreateFields) => LanguageCreateOneBuilder;
+      deleteById: (id: ID) => LanguageDeleteByIdBuilder;
+      deleteMany: () => LanguageDeleteManyBuilder;
+      updateById: (id: ID, input: LanguageUpdateFields) => LanguageUpdateByIdBuilder;
+      updateMany: (input: LanguageUpdateFields) => LanguageUpdateManyBuilder;
+    };
+    Customer: {
+      findById: (id: ID) => CustomerFindByIdBuilder;
+      findMany: () => CustomerFindManyBuilder;
+      findOne: () => CustomerFindOneBuilder;
+      paginate: () => CustomerPaginateBuilder;
+      createMany: (input: CustomerCreateFields[]) => CustomerCreateManyBuilder;
+      createOne: (input: CustomerCreateFields) => CustomerCreateOneBuilder;
+      deleteById: (id: ID) => CustomerDeleteByIdBuilder;
+      deleteMany: () => CustomerDeleteManyBuilder;
+      updateById: (id: ID, input: CustomerUpdateFields) => CustomerUpdateByIdBuilder;
+      updateMany: (input: CustomerUpdateFields) => CustomerUpdateManyBuilder;
+    };
+    Category: {
+      findById: (id: ID) => CategoryFindByIdBuilder;
+      findMany: () => CategoryFindManyBuilder;
+      findOne: () => CategoryFindOneBuilder;
+      paginate: () => CategoryPaginateBuilder;
+    };
+    Address: {
+      findById: (id: ID) => AddressFindByIdBuilder;
+      findMany: () => AddressFindManyBuilder;
+      findOne: () => AddressFindOneBuilder;
+      paginate: () => AddressPaginateBuilder;
+    };
+    Movie: {
+      findById: (id: ID) => MovieFindByIdBuilder;
+      findMany: () => MovieFindManyBuilder;
+      findOne: () => MovieFindOneBuilder;
+      paginate: () => MoviePaginateBuilder;
+      createMany: (input: MovieCreateFields[]) => MovieCreateManyBuilder;
+      createOne: (input: MovieCreateFields) => MovieCreateOneBuilder;
+      deleteById: (id: ID) => MovieDeleteByIdBuilder;
+      deleteMany: () => MovieDeleteManyBuilder;
+      updateById: (id: ID, input: MovieUpdateFields) => MovieUpdateByIdBuilder;
+      updateMany: (input: MovieUpdateFields) => MovieUpdateManyBuilder;
+    };
+    Person: {
+      findById: (id: ID) => PersonFindByIdBuilder;
+      findMany: () => PersonFindManyBuilder;
+      findOne: () => PersonFindOneBuilder;
+      paginate: () => PersonPaginateBuilder;
+    };
+  };
+};
+"
+`;
+
+exports[`Sqlmancer Plugin schema with directives Should generate only SqlmancerClient types 1`] = `
+"export type Maybe<T> = T | null;
+
+
+import {
+  CreateManyBuilder,
+  CreateOneBuilder,
+  DeleteByIdBuilder,
+  DeleteManyBuilder,
+  FindByIdBuilder,
+  FindManyBuilder,
+  FindOneBuilder,
+  PaginateBuilder,
+  UpdateByIdBuilder,
+  UpdateManyBuilder
+} from 'sqlmancer';
+
+import Knex from 'knex';
+
+/** All built-in and custom scalars, mapped to their actual values */
+export type Scalars = {
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
+  DateTime: any;
+  JSON: any;
+  JSONObject: any;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export type Query = {
+   __typename?: 'Query';
+  actors: Array<Actor>;
+  actor?: Maybe<Actor>;
+  actorsPaginated?: Maybe<ActorPage>;
+  films: Array<Film>;
+  film?: Maybe<Film>;
+  filmsPaginated?: Maybe<FilmPage>;
+  customers: Array<Customer>;
+  customer?: Maybe<Customer>;
+  addresses: Array<Address>;
+  address?: Maybe<Address>;
+  movies: Array<Movie>;
+  people: Array<Person>;
+};
+
+
+export type QueryActorsArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<ActorOrderBy>>;
+  where?: Maybe<ActorWhere>;
+};
+
+
+export type QueryActorArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryActorsPaginatedArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<ActorOrderBy>>;
+  where?: Maybe<ActorWhere>;
+};
+
+
+export type QueryFilmsArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  where?: Maybe<FilmWhere>;
+  orderBy?: Maybe<Array<FilmOrderBy>>;
+};
+
+
+export type QueryFilmArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryFilmsPaginatedArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<FilmOrderBy>>;
+  where?: Maybe<FilmWhere>;
+};
+
+
+export type QueryCustomersArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<CustomerOrderBy>>;
+  where?: Maybe<CustomerWhere>;
+};
+
+
+export type QueryCustomerArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryAddressesArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<AddressOrderBy>>;
+  where?: Maybe<AddressWhere>;
+};
+
+
+export type QueryAddressArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryMoviesArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<MovieOrderBy>>;
+  where?: Maybe<MovieWhere>;
+};
+
+
+export type QueryPeopleArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<PersonOrderBy>>;
+  where?: Maybe<PersonWhere>;
+};
+
+export type ActorPage = {
+   __typename?: 'ActorPage';
+  results: Array<Actor>;
+  aggregate: ActorAggregate;
+  hasMore: Scalars['Boolean'];
+};
+
+export type ActorAggregate = {
+   __typename?: 'ActorAggregate';
+  count: Scalars['Int'];
+  min?: Maybe<ActorAggregateMin>;
+  max?: Maybe<ActorAggregateMax>;
+};
+
+export type ActorAggregateMin = {
+   __typename?: 'ActorAggregateMin';
+  id?: Maybe<Scalars['ID']>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  lastUpdate?: Maybe<Scalars['DateTime']>;
+};
+
+export type ActorAggregateMax = {
+   __typename?: 'ActorAggregateMax';
+  id?: Maybe<Scalars['ID']>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  lastUpdate?: Maybe<Scalars['DateTime']>;
+};
+
+export type FilmPage = {
+   __typename?: 'FilmPage';
+  results: Array<Film>;
+  aggregate: FilmAggregate;
+  hasMore: Scalars['Boolean'];
+};
+
+export type FilmAggregate = {
+   __typename?: 'FilmAggregate';
+  count: Scalars['Int'];
+  avg?: Maybe<FilmAggregateAvg>;
+  sum?: Maybe<FilmAggregateSum>;
+  min?: Maybe<FilmAggregateMin>;
+  max?: Maybe<FilmAggregateMax>;
+};
+
+export type FilmAggregateAvg = {
+   __typename?: 'FilmAggregateAvg';
+  releaseYear: Scalars['Float'];
+  length: Scalars['Float'];
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Float'];
+  replacementCost: Scalars['Float'];
+};
+
+export type FilmAggregateSum = {
+   __typename?: 'FilmAggregateSum';
+  releaseYear: Scalars['Float'];
+  length: Scalars['Float'];
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Float'];
+  replacementCost: Scalars['Float'];
+};
+
+export type FilmAggregateMin = {
+   __typename?: 'FilmAggregateMin';
+  id?: Maybe<Scalars['ID']>;
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  releaseYear?: Maybe<Scalars['Int']>;
+  length?: Maybe<Scalars['Int']>;
+  rentalRate?: Maybe<Scalars['Float']>;
+  rentalDuration?: Maybe<Scalars['Int']>;
+  replacementCost?: Maybe<Scalars['Float']>;
+  lastUpdate?: Maybe<Scalars['DateTime']>;
+};
+
+export type FilmAggregateMax = {
+   __typename?: 'FilmAggregateMax';
+  id?: Maybe<Scalars['ID']>;
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  releaseYear?: Maybe<Scalars['Int']>;
+  length?: Maybe<Scalars['Int']>;
+  rentalRate?: Maybe<Scalars['Float']>;
+  rentalDuration?: Maybe<Scalars['Int']>;
+  replacementCost?: Maybe<Scalars['Float']>;
+  lastUpdate?: Maybe<Scalars['DateTime']>;
+};
+
+export type Mutation = {
+   __typename?: 'Mutation';
+  createCustomer?: Maybe<Customer>;
+  createCustomers: Array<Customer>;
+  deleteCustomer: Scalars['Boolean'];
+  deleteCustomers: Scalars['Boolean'];
+  updateCustomer?: Maybe<Customer>;
+  updateCustomers: Array<Customer>;
+};
+
+
+export type MutationCreateCustomerArgs = {
+  input: CreateCustomerInput;
+};
+
+
+export type MutationCreateCustomersArgs = {
+  input: Array<CreateCustomerInput>;
+};
+
+
+export type MutationDeleteCustomerArgs = {
+  id?: Maybe<Scalars['ID']>;
+};
+
+
+export type MutationDeleteCustomersArgs = {
+  where?: Maybe<CustomerWhere>;
+};
+
+
+export type MutationUpdateCustomerArgs = {
+  id?: Maybe<Scalars['ID']>;
+  input: UpdateCustomerInput;
+};
+
+
+export type MutationUpdateCustomersArgs = {
+  where?: Maybe<CustomerWhere>;
+  input: UpdateCustomerInput;
+};
+
+export type Actor = {
+   __typename?: 'Actor';
+  id: Scalars['ID'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  lastUpdate: Scalars['DateTime'];
+  films: Array<Film>;
+  filmsPaginated?: Maybe<FilmPage>;
+};
+
+
+export type ActorFilmsArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<FilmOrderBy>>;
+  where?: Maybe<FilmWhere>;
+};
+
+
+export type ActorFilmsPaginatedArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<FilmOrderBy>>;
+  where?: Maybe<FilmWhere>;
+};
+
+export type Film = {
+   __typename?: 'Film';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  releaseYear: Scalars['Int'];
+  length: Scalars['Int'];
+  rating: FilmRating;
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Int'];
+  replacementCost: Scalars['Float'];
+  specialFeatures: Array<Scalars['String']>;
+  extraData: Scalars['JSON'];
+  lastUpdate: Scalars['DateTime'];
+  actors: Array<Actor>;
+  categories: Array<Category>;
+  actorsPaginated?: Maybe<ActorPage>;
+  language: Language;
+  originalLanguage?: Maybe<Language>;
+  sequel?: Maybe<Film>;
+};
+
+
+export type FilmActorsArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<ActorOrderBy>>;
+  where?: Maybe<ActorWhere>;
+};
+
+
+export type FilmCategoriesArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<CategoryOrderBy>>;
+  where?: Maybe<CategoryWhere>;
+};
+
+
+export type FilmActorsPaginatedArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<ActorOrderBy>>;
+  where?: Maybe<ActorWhere>;
+};
+
+export type Language = {
+   __typename?: 'Language';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  lastUpdate: Scalars['DateTime'];
+  films: Array<Film>;
+  filmsPaginated?: Maybe<FilmPage>;
+};
+
+
+export type LanguageFilmsArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<FilmOrderBy>>;
+  where?: Maybe<FilmWhere>;
+};
+
+
+export type LanguageFilmsPaginatedArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<FilmOrderBy>>;
+  where?: Maybe<FilmWhere>;
+};
+
+export type Customer = {
+   __typename?: 'Customer';
+  id: Scalars['ID'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type CreateCustomerPayload = {
+   __typename?: 'CreateCustomerPayload';
+  customer?: Maybe<Film>;
+  message?: Maybe<Scalars['String']>;
+};
+
+export type Category = {
+   __typename?: 'Category';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  lastUpdate: Scalars['DateTime'];
+  films: Array<Film>;
+};
+
+
+export type CategoryFilmsArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Array<FilmOrderBy>>;
+  where?: Maybe<FilmWhere>;
+};
+
+export type Address = {
+   __typename?: 'Address';
+  id: Scalars['ID'];
+  addressLine: Scalars['String'];
+  addressLine2?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  country: Scalars['String'];
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type Movie = {
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  releaseYear: Scalars['Int'];
+  length: Scalars['Int'];
+  rating: FilmRating;
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Int'];
+  replacementCost: Scalars['Float'];
+  extraData: Scalars['JSON'];
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type ShortMovie = Movie & {
+   __typename?: 'ShortMovie';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  releaseYear: Scalars['Int'];
+  length: Scalars['Int'];
+  rating: FilmRating;
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Int'];
+  replacementCost: Scalars['Float'];
+  extraData: Scalars['JSON'];
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type LongMovie = Movie & {
+   __typename?: 'LongMovie';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  releaseYear: Scalars['Int'];
+  length: Scalars['Int'];
+  rating: FilmRating;
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Int'];
+  replacementCost: Scalars['Float'];
+  extraData: Scalars['JSON'];
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type Person = Actor | Customer;
+
+export enum FilmRating {
+  G = 'G',
+  PG = 'PG',
+  PG13 = 'PG-13',
+  R = 'R',
+  NC17 = 'NC-17'
+}
+
+export type SqlmancerCustomScalars = {
+  string?: Maybe<Array<Scalars['String']>>;
+  number?: Maybe<Array<Scalars['String']>>;
+  boolean?: Maybe<Array<Scalars['String']>>;
+  JSON?: Maybe<Array<Scalars['String']>>;
+  Date?: Maybe<Array<Scalars['String']>>;
+};
+
+export type SqlmancerJoinOn = {
+  from: Scalars['String'];
+  to: Scalars['String'];
+};
+
+export enum SqlmancerDialect {
+  POSTGRES = 'POSTGRES',
+  MYSQL = 'MYSQL',
+  MARIADB = 'MARIADB',
+  SQLITE = 'SQLITE'
+}
+
+export enum SqlmancerFieldNameTransformation {
+  CAMEL_CASE = 'CAMEL_CASE',
+  PASCAL_CASE = 'PASCAL_CASE',
+  SNAKE_CASE = 'SNAKE_CASE'
+}
+
+export enum SqlmancerAggregateFunction {
+  avg = 'avg',
+  count = 'count',
+  max = 'max',
+  min = 'min',
+  sum = 'sum'
+}
+
+export enum SqlmancerPaginationKind {
+  OFFSET = 'OFFSET'
+}
+
+export enum SqlmancerInputAction {
+  CREATE = 'CREATE',
+  UPDATE = 'UPDATE'
+}
+
+export enum SortDirection {
+  ASC = 'ASC',
+  DESC = 'DESC'
+}
+
+export type ActorOrderBy = {
+  id?: Maybe<SortDirection>;
+  firstName?: Maybe<SortDirection>;
+  lastName?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+  films?: Maybe<FilmOrderByAggregateFieldsOnly>;
+  filmsPaginated?: Maybe<FilmOrderByNested>;
+};
+
+export type FilmWhereVg = {
+  replacementCost?: Maybe<FloatOperators>;
+  rentalDuration?: Maybe<IntOperators>;
+  rentalRate?: Maybe<FloatOperators>;
+  length?: Maybe<IntOperators>;
+  releaseYear?: Maybe<IntOperators>;
+};
+
+export type FilmWhereUm = {
+  replacementCost?: Maybe<FloatOperators>;
+  rentalDuration?: Maybe<IntOperators>;
+  rentalRate?: Maybe<FloatOperators>;
+  length?: Maybe<IntOperators>;
+  releaseYear?: Maybe<IntOperators>;
+};
+
+export type FilmWhereIn = {
+  lastUpdate?: Maybe<DateTimeOperators>;
+  replacementCost?: Maybe<FloatOperators>;
+  rentalDuration?: Maybe<IntOperators>;
+  rentalRate?: Maybe<FloatOperators>;
+  length?: Maybe<IntOperators>;
+  releaseYear?: Maybe<IntOperators>;
+  description?: Maybe<StringOperators>;
+  title?: Maybe<StringOperators>;
+};
+
+export type FilmWhereAx = {
+  lastUpdate?: Maybe<DateTimeOperators>;
+  replacementCost?: Maybe<FloatOperators>;
+  rentalDuration?: Maybe<IntOperators>;
+  rentalRate?: Maybe<FloatOperators>;
+  length?: Maybe<IntOperators>;
+  releaseYear?: Maybe<IntOperators>;
+  description?: Maybe<StringOperators>;
+  title?: Maybe<StringOperators>;
+};
+
+export type FilmOrderByAggregateFieldsOnly = {
+  avg?: Maybe<FilmWhereVg>;
+  sum?: Maybe<FilmWhereUm>;
+  min?: Maybe<FilmWhereIn>;
+  max?: Maybe<FilmWhereAx>;
+  count?: Maybe<SortDirection>;
+};
+
+export type FilmOrderByNested = {
+  id?: Maybe<SortDirection>;
+  title?: Maybe<SortDirection>;
+  description?: Maybe<SortDirection>;
+  releaseYear?: Maybe<SortDirection>;
+  length?: Maybe<SortDirection>;
+  rating?: Maybe<SortDirection>;
+  rentalRate?: Maybe<SortDirection>;
+  rentalDuration?: Maybe<SortDirection>;
+  replacementCost?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+};
+
+export type IdOperators = {
+  equal?: Maybe<Scalars['ID']>;
+  notEqual?: Maybe<Scalars['ID']>;
+  in?: Maybe<Array<Scalars['ID']>>;
+  notIn?: Maybe<Array<Scalars['ID']>>;
+  greaterThan?: Maybe<Scalars['ID']>;
+  greaterThanOrEqual?: Maybe<Scalars['ID']>;
+  lessThan?: Maybe<Scalars['ID']>;
+  lessThanOrEqual?: Maybe<Scalars['ID']>;
+};
+
+export type StringOperators = {
+  equal?: Maybe<Scalars['String']>;
+  notEqual?: Maybe<Scalars['String']>;
+  greaterThan?: Maybe<Scalars['String']>;
+  greaterThanOrEqual?: Maybe<Scalars['String']>;
+  lessThan?: Maybe<Scalars['String']>;
+  lessThanOrEqual?: Maybe<Scalars['String']>;
+  in?: Maybe<Array<Scalars['String']>>;
+  notIn?: Maybe<Array<Scalars['String']>>;
+  like?: Maybe<Scalars['String']>;
+  notLike?: Maybe<Scalars['String']>;
+  iLike?: Maybe<Scalars['String']>;
+  notILike?: Maybe<Scalars['String']>;
+};
+
+export type DateTimeOperators = {
+  equal?: Maybe<Scalars['DateTime']>;
+  notEqual?: Maybe<Scalars['DateTime']>;
+  in?: Maybe<Array<Scalars['DateTime']>>;
+  notIn?: Maybe<Array<Scalars['DateTime']>>;
+  greaterThan?: Maybe<Scalars['DateTime']>;
+  greaterThanOrEqual?: Maybe<Scalars['DateTime']>;
+  lessThan?: Maybe<Scalars['DateTime']>;
+  lessThanOrEqual?: Maybe<Scalars['DateTime']>;
+};
+
+export type ActorWhere = {
+  id?: Maybe<IdOperators>;
+  firstName?: Maybe<StringOperators>;
+  lastName?: Maybe<StringOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<ActorWhere>>;
+  or?: Maybe<Array<ActorWhere>>;
+  not?: Maybe<ActorWhere>;
+  films?: Maybe<FilmWhereWithAggregateFields>;
+  filmsPaginated?: Maybe<FilmWhere>;
+};
+
+export type IntOperators = {
+  equal?: Maybe<Scalars['Int']>;
+  notEqual?: Maybe<Scalars['Int']>;
+  in?: Maybe<Array<Scalars['Int']>>;
+  notIn?: Maybe<Array<Scalars['Int']>>;
+  greaterThan?: Maybe<Scalars['Int']>;
+  greaterThanOrEqual?: Maybe<Scalars['Int']>;
+  lessThan?: Maybe<Scalars['Int']>;
+  lessThanOrEqual?: Maybe<Scalars['Int']>;
+};
+
+export type FilmRatingOperators = {
+  equal?: Maybe<FilmRating>;
+  notEqual?: Maybe<FilmRating>;
+  in?: Maybe<Array<FilmRating>>;
+  notIn?: Maybe<Array<FilmRating>>;
+};
+
+export type FloatOperators = {
+  equal?: Maybe<Scalars['Float']>;
+  notEqual?: Maybe<Scalars['Float']>;
+  in?: Maybe<Array<Scalars['Float']>>;
+  notIn?: Maybe<Array<Scalars['Float']>>;
+  greaterThan?: Maybe<Scalars['Float']>;
+  greaterThanOrEqual?: Maybe<Scalars['Float']>;
+  lessThan?: Maybe<Scalars['Float']>;
+  lessThanOrEqual?: Maybe<Scalars['Float']>;
+};
+
+export type StringListOperators = {
+  equal?: Maybe<Array<Scalars['String']>>;
+  notEqual?: Maybe<Array<Scalars['String']>>;
+  contains?: Maybe<Array<Scalars['String']>>;
+  containedBy?: Maybe<Array<Scalars['String']>>;
+  overlaps?: Maybe<Array<Scalars['String']>>;
+};
+
+export type JsonOperators = {
+  equal?: Maybe<Scalars['String']>;
+  notEqual?: Maybe<Scalars['String']>;
+  contains?: Maybe<Scalars['String']>;
+  containedBy?: Maybe<Scalars['String']>;
+  hasKey?: Maybe<Scalars['String']>;
+  hasAnyKeys?: Maybe<Array<Scalars['String']>>;
+  hasAllKeys?: Maybe<Array<Scalars['String']>>;
+};
+
+export type FilmWhereWithAggregateFields = {
+  id?: Maybe<IdOperators>;
+  title?: Maybe<StringOperators>;
+  description?: Maybe<StringOperators>;
+  releaseYear?: Maybe<IntOperators>;
+  length?: Maybe<IntOperators>;
+  rating?: Maybe<FilmRatingOperators>;
+  rentalRate?: Maybe<FloatOperators>;
+  rentalDuration?: Maybe<IntOperators>;
+  replacementCost?: Maybe<FloatOperators>;
+  specialFeatures?: Maybe<StringListOperators>;
+  extraData?: Maybe<JsonOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<FilmWhere>>;
+  or?: Maybe<Array<FilmWhere>>;
+  not?: Maybe<FilmWhere>;
+  actors?: Maybe<ActorWhereWithAggregateFields>;
+  categories?: Maybe<CategoryWhereWithAggregateFields>;
+  actorsPaginated?: Maybe<ActorWhere>;
+  language?: Maybe<LanguageWhere>;
+  originalLanguage?: Maybe<LanguageWhere>;
+  sequel?: Maybe<FilmWhere>;
+  avg?: Maybe<FilmWhereVg>;
+  sum?: Maybe<FilmWhereUm>;
+  min?: Maybe<FilmWhereIn>;
+  max?: Maybe<FilmWhereAx>;
+  count?: Maybe<IntOperators>;
+};
+
+export type FilmWhere = {
+  id?: Maybe<IdOperators>;
+  title?: Maybe<StringOperators>;
+  description?: Maybe<StringOperators>;
+  releaseYear?: Maybe<IntOperators>;
+  length?: Maybe<IntOperators>;
+  rating?: Maybe<FilmRatingOperators>;
+  rentalRate?: Maybe<FloatOperators>;
+  rentalDuration?: Maybe<IntOperators>;
+  replacementCost?: Maybe<FloatOperators>;
+  specialFeatures?: Maybe<StringListOperators>;
+  extraData?: Maybe<JsonOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<FilmWhere>>;
+  or?: Maybe<Array<FilmWhere>>;
+  not?: Maybe<FilmWhere>;
+  actors?: Maybe<ActorWhereWithAggregateFields>;
+  categories?: Maybe<CategoryWhereWithAggregateFields>;
+  actorsPaginated?: Maybe<ActorWhere>;
+  language?: Maybe<LanguageWhere>;
+  originalLanguage?: Maybe<LanguageWhere>;
+  sequel?: Maybe<FilmWhere>;
+};
+
+export type ActorWhereWithAggregateFields = {
+  id?: Maybe<IdOperators>;
+  firstName?: Maybe<StringOperators>;
+  lastName?: Maybe<StringOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<ActorWhere>>;
+  or?: Maybe<Array<ActorWhere>>;
+  not?: Maybe<ActorWhere>;
+  films?: Maybe<FilmWhereWithAggregateFields>;
+  filmsPaginated?: Maybe<FilmWhere>;
+  min?: Maybe<ActorWhereIn>;
+  max?: Maybe<ActorWhereAx>;
+  count?: Maybe<IntOperators>;
+};
+
+export type ActorWhereIn = {
+  lastUpdate?: Maybe<SortDirection>;
+  lastName?: Maybe<SortDirection>;
+  firstName?: Maybe<SortDirection>;
+};
+
+export type ActorWhereAx = {
+  lastUpdate?: Maybe<SortDirection>;
+  lastName?: Maybe<SortDirection>;
+  firstName?: Maybe<SortDirection>;
+};
+
+export type CategoryWhereWithAggregateFields = {
+  id?: Maybe<IdOperators>;
+  name?: Maybe<StringOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<CategoryWhere>>;
+  or?: Maybe<Array<CategoryWhere>>;
+  not?: Maybe<CategoryWhere>;
+  films?: Maybe<FilmWhereWithAggregateFields>;
+  min?: Maybe<CategoryWhereIn>;
+  max?: Maybe<CategoryWhereAx>;
+  count?: Maybe<IntOperators>;
+};
+
+export type CategoryWhere = {
+  id?: Maybe<IdOperators>;
+  name?: Maybe<StringOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<CategoryWhere>>;
+  or?: Maybe<Array<CategoryWhere>>;
+  not?: Maybe<CategoryWhere>;
+  films?: Maybe<FilmWhereWithAggregateFields>;
+};
+
+export type CategoryWhereIn = {
+  lastUpdate?: Maybe<SortDirection>;
+  name?: Maybe<SortDirection>;
+};
+
+export type CategoryWhereAx = {
+  lastUpdate?: Maybe<SortDirection>;
+  name?: Maybe<SortDirection>;
+};
+
+export type LanguageWhere = {
+  id?: Maybe<IdOperators>;
+  name?: Maybe<StringOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<LanguageWhere>>;
+  or?: Maybe<Array<LanguageWhere>>;
+  not?: Maybe<LanguageWhere>;
+  films?: Maybe<FilmWhereWithAggregateFields>;
+  filmsPaginated?: Maybe<FilmWhere>;
+};
+
+export type FilmOrderBy = {
+  id?: Maybe<SortDirection>;
+  title?: Maybe<SortDirection>;
+  description?: Maybe<SortDirection>;
+  releaseYear?: Maybe<SortDirection>;
+  length?: Maybe<SortDirection>;
+  rating?: Maybe<SortDirection>;
+  rentalRate?: Maybe<SortDirection>;
+  rentalDuration?: Maybe<SortDirection>;
+  replacementCost?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+  actors?: Maybe<ActorOrderByAggregateFieldsOnly>;
+  categories?: Maybe<CategoryOrderByAggregateFieldsOnly>;
+  actorsPaginated?: Maybe<ActorOrderByNested>;
+  language?: Maybe<LanguageOrderByNested>;
+  originalLanguage?: Maybe<LanguageOrderByNested>;
+  sequel?: Maybe<FilmOrderByNested>;
+};
+
+export type ActorOrderByAggregateFieldsOnly = {
+  min?: Maybe<ActorWhereIn>;
+  max?: Maybe<ActorWhereAx>;
+  count?: Maybe<SortDirection>;
+};
+
+export type CategoryOrderByAggregateFieldsOnly = {
+  min?: Maybe<CategoryWhereIn>;
+  max?: Maybe<CategoryWhereAx>;
+  count?: Maybe<SortDirection>;
+};
+
+export type ActorOrderByNested = {
+  id?: Maybe<SortDirection>;
+  firstName?: Maybe<SortDirection>;
+  lastName?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+};
+
+export type LanguageOrderByNested = {
+  id?: Maybe<SortDirection>;
+  name?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+};
+
+export type CustomerOrderBy = {
+  id?: Maybe<SortDirection>;
+  firstName?: Maybe<SortDirection>;
+  lastName?: Maybe<SortDirection>;
+  email?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+};
+
+export type CustomerWhere = {
+  id?: Maybe<IdOperators>;
+  firstName?: Maybe<StringOperators>;
+  lastName?: Maybe<StringOperators>;
+  email?: Maybe<StringOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<CustomerWhere>>;
+  or?: Maybe<Array<CustomerWhere>>;
+  not?: Maybe<CustomerWhere>;
+};
+
+export type AddressOrderBy = {
+  id?: Maybe<SortDirection>;
+  addressLine?: Maybe<SortDirection>;
+  addressLine2?: Maybe<SortDirection>;
+  postalCode?: Maybe<SortDirection>;
+  city?: Maybe<SortDirection>;
+  country?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+};
+
+export type AddressWhere = {
+  id?: Maybe<IdOperators>;
+  addressLine?: Maybe<StringOperators>;
+  addressLine2?: Maybe<StringOperators>;
+  postalCode?: Maybe<StringOperators>;
+  city?: Maybe<StringOperators>;
+  country?: Maybe<StringOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<AddressWhere>>;
+  or?: Maybe<Array<AddressWhere>>;
+  not?: Maybe<AddressWhere>;
+};
+
+export type MovieOrderBy = {
+  id?: Maybe<SortDirection>;
+  title?: Maybe<SortDirection>;
+  description?: Maybe<SortDirection>;
+  releaseYear?: Maybe<SortDirection>;
+  length?: Maybe<SortDirection>;
+  rating?: Maybe<SortDirection>;
+  rentalRate?: Maybe<SortDirection>;
+  rentalDuration?: Maybe<SortDirection>;
+  replacementCost?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+};
+
+export type MovieWhere = {
+  id?: Maybe<IdOperators>;
+  title?: Maybe<StringOperators>;
+  description?: Maybe<StringOperators>;
+  releaseYear?: Maybe<IntOperators>;
+  length?: Maybe<IntOperators>;
+  rating?: Maybe<FilmRatingOperators>;
+  rentalRate?: Maybe<FloatOperators>;
+  rentalDuration?: Maybe<IntOperators>;
+  replacementCost?: Maybe<FloatOperators>;
+  extraData?: Maybe<JsonOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  and?: Maybe<Array<MovieWhere>>;
+  or?: Maybe<Array<MovieWhere>>;
+  not?: Maybe<MovieWhere>;
+};
+
+export type PersonOrderBy = {
+  id?: Maybe<SortDirection>;
+  firstName?: Maybe<SortDirection>;
+  lastName?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+  email?: Maybe<SortDirection>;
+  films?: Maybe<FilmOrderByAggregateFieldsOnly>;
+  filmsPaginated?: Maybe<FilmOrderByNested>;
+};
+
+export type PersonWhere = {
+  id?: Maybe<IdOperators>;
+  firstName?: Maybe<StringOperators>;
+  lastName?: Maybe<StringOperators>;
+  lastUpdate?: Maybe<DateTimeOperators>;
+  email?: Maybe<StringOperators>;
+  and?: Maybe<Array<PersonWhere>>;
+  or?: Maybe<Array<PersonWhere>>;
+  not?: Maybe<PersonWhere>;
+  films?: Maybe<FilmWhereWithAggregateFields>;
+  filmsPaginated?: Maybe<FilmWhere>;
+};
+
+export type CreateCustomerInput = {
+  id?: Maybe<Scalars['ID']>;
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
+  lastUpdate?: Maybe<Scalars['DateTime']>;
+};
+
+export type UpdateCustomerInput = {
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  lastUpdate?: Maybe<Scalars['DateTime']>;
+};
+
+export type CategoryOrderBy = {
+  id?: Maybe<SortDirection>;
+  name?: Maybe<SortDirection>;
+  lastUpdate?: Maybe<SortDirection>;
+  films?: Maybe<FilmOrderByAggregateFieldsOnly>;
+};
+
+
+
+
+
+
+export type ID = number | string;
+
+export type JSON = boolean | number | string | null | JSONArray | JSONObject;
+
+export interface JSONObject {
+  [key: string]: JSON;
+}
+
+export type JSONArray = Array<JSON>;
+
+export type ActorFields = {
+  id: ID;
+  firstName: string;
+  lastName: string;
+  lastUpdate: string;
+}
+
+export type ActorIds = 'id';
+
+export type ActorEnums = unknown;
+
+export type ActorAssociations = {
+  films: [FilmFindManyBuilder, FilmPaginateBuilder];
+  filmsPaginated: [FilmPageFindOneBuilder, FilmPagePaginateBuilder];
+}
+
+export type ActorCreateFields = {
+  id?: ID;
+  firstName: string;
+  lastName: string;
+  lastUpdate?: Date | string;
+};
+
+export type ActorUpdateFields = {
+  firstName?: string;
+  lastName?: string;
+  lastUpdate?: Date | string;
+};
+
+export type ActorFindOneBuilder<TSelected extends Pick<ActorFields, any> = ActorFields> = FindOneBuilder<
+  'postgres',
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations,
+  TSelected
+>;
+
+export type ActorFindManyBuilder<TSelected extends Pick<ActorFields, any> = ActorFields> = FindManyBuilder<
+  'postgres',
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations,
+  TSelected
+>;
+
+export type ActorFindByIdBuilder<TSelected extends Pick<ActorFields, any> = ActorFields> = FindByIdBuilder<
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations,
+  TSelected
+>;
+
+export type ActorPaginateBuilder = PaginateBuilder<
+  'postgres',
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations
+>;
+
+export type ActorDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations
+>;
+
+export type ActorDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type ActorCreateManyBuilder = CreateManyBuilder<ActorCreateFields>;
+
+export type ActorCreateOneBuilder = CreateOneBuilder<ActorCreateFields>;
+
+export type ActorUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  ActorUpdateFields,
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations
+>;
+
+export type ActorUpdateByIdBuilder = UpdateByIdBuilder<ActorUpdateFields>;
+
+export type FilmFields = {
+  id: ID;
+  title: string;
+  description: string;
+  releaseYear: number;
+  length: number;
+  rating: FilmRating;
+  rentalRate: number;
+  rentalDuration: number;
+  replacementCost: number;
+  specialFeatures: string[];
+  extraData: JSON;
+  lastUpdate: string;
+}
+
+export type FilmIds = 'id';
+
+export type FilmEnums = FilmRating;
+
+export type FilmAssociations = {
+  actors: [ActorFindManyBuilder, ActorPaginateBuilder];
+  categories: [CategoryFindManyBuilder, CategoryPaginateBuilder];
+  actorsPaginated: [ActorPageFindOneBuilder, ActorPagePaginateBuilder];
+  language: [LanguageFindOneBuilder, LanguagePaginateBuilder];
+  originalLanguage: [LanguageFindOneBuilder, LanguagePaginateBuilder];
+  sequel: [FilmFindOneBuilder, FilmPaginateBuilder];
+}
+
+export type FilmCreateFields = {
+  id?: ID;
+  title: string;
+  description: string;
+  releaseYear: number;
+  length: number;
+  rating: FilmRating;
+  rentalRate: number;
+  rentalDuration: number;
+  replacementCost: number;
+  specialFeatures: string[];
+  extraData: JSON;
+  lastUpdate?: Date | string;
+};
+
+export type FilmUpdateFields = {
+  title?: string;
+  description?: string;
+  releaseYear?: number;
+  length?: number;
+  rating?: FilmRating;
+  rentalRate?: number;
+  rentalDuration?: number;
+  replacementCost?: number;
+  specialFeatures?: string[];
+  extraData?: JSON;
+  lastUpdate?: Date | string;
+};
+
+export type FilmFindOneBuilder<TSelected extends Pick<FilmFields, any> = FilmFields> = FindOneBuilder<
+  'postgres',
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations,
+  TSelected
+>;
+
+export type FilmFindManyBuilder<TSelected extends Pick<FilmFields, any> = FilmFields> = FindManyBuilder<
+  'postgres',
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations,
+  TSelected
+>;
+
+export type FilmFindByIdBuilder<TSelected extends Pick<FilmFields, any> = FilmFields> = FindByIdBuilder<
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations,
+  TSelected
+>;
+
+export type FilmPaginateBuilder = PaginateBuilder<
+  'postgres',
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations
+>;
+
+export type FilmDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations
+>;
+
+export type FilmDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type FilmCreateManyBuilder = CreateManyBuilder<FilmCreateFields>;
+
+export type FilmCreateOneBuilder = CreateOneBuilder<FilmCreateFields>;
+
+export type FilmUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  FilmUpdateFields,
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations
+>;
+
+export type FilmUpdateByIdBuilder = UpdateByIdBuilder<FilmUpdateFields>;
+
+export type LanguageFields = {
+  id: ID;
+  name: string;
+  lastUpdate: string;
+}
+
+export type LanguageIds = 'id';
+
+export type LanguageEnums = unknown;
+
+export type LanguageAssociations = {
+  films: [FilmFindManyBuilder, FilmPaginateBuilder];
+  filmsPaginated: [FilmPageFindOneBuilder, FilmPagePaginateBuilder];
+}
+
+export type LanguageCreateFields = {
+  id?: ID;
+  name: string;
+  lastUpdate?: Date | string;
+};
+
+export type LanguageUpdateFields = {
+  name?: string;
+  lastUpdate?: Date | string;
+};
+
+export type LanguageFindOneBuilder<TSelected extends Pick<LanguageFields, any> = LanguageFields> = FindOneBuilder<
+  'postgres',
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations,
+  TSelected
+>;
+
+export type LanguageFindManyBuilder<TSelected extends Pick<LanguageFields, any> = LanguageFields> = FindManyBuilder<
+  'postgres',
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations,
+  TSelected
+>;
+
+export type LanguageFindByIdBuilder<TSelected extends Pick<LanguageFields, any> = LanguageFields> = FindByIdBuilder<
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations,
+  TSelected
+>;
+
+export type LanguagePaginateBuilder = PaginateBuilder<
+  'postgres',
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations
+>;
+
+export type LanguageDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations
+>;
+
+export type LanguageDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type LanguageCreateManyBuilder = CreateManyBuilder<LanguageCreateFields>;
+
+export type LanguageCreateOneBuilder = CreateOneBuilder<LanguageCreateFields>;
+
+export type LanguageUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  LanguageUpdateFields,
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations
+>;
+
+export type LanguageUpdateByIdBuilder = UpdateByIdBuilder<LanguageUpdateFields>;
+
+export type CustomerFields = {
+  id: ID;
+  firstName: string;
+  lastName: string;
+  email: string;
+  lastUpdate: string;
+}
+
+export type CustomerIds = 'id';
+
+export type CustomerEnums = unknown;
+
+export type CustomerAssociations = {
+
+}
+
+export type CustomerCreateFields = {
+  id?: ID;
+  firstName: string;
+  lastName: string;
+  email?: string;
+  lastUpdate?: Date | string;
+};
+
+export type CustomerUpdateFields = {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  lastUpdate?: Date | string;
+};
+
+export type CustomerFindOneBuilder<TSelected extends Pick<CustomerFields, any> = CustomerFields> = FindOneBuilder<
+  'postgres',
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations,
+  TSelected
+>;
+
+export type CustomerFindManyBuilder<TSelected extends Pick<CustomerFields, any> = CustomerFields> = FindManyBuilder<
+  'postgres',
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations,
+  TSelected
+>;
+
+export type CustomerFindByIdBuilder<TSelected extends Pick<CustomerFields, any> = CustomerFields> = FindByIdBuilder<
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations,
+  TSelected
+>;
+
+export type CustomerPaginateBuilder = PaginateBuilder<
+  'postgres',
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations
+>;
+
+export type CustomerDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations
+>;
+
+export type CustomerDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type CustomerCreateManyBuilder = CreateManyBuilder<CustomerCreateFields>;
+
+export type CustomerCreateOneBuilder = CreateOneBuilder<CustomerCreateFields>;
+
+export type CustomerUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  CustomerUpdateFields,
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations
+>;
+
+export type CustomerUpdateByIdBuilder = UpdateByIdBuilder<CustomerUpdateFields>;
+
+export type CategoryFields = {
+  id: ID;
+  name: string;
+  lastUpdate: string;
+}
+
+export type CategoryIds = 'id';
+
+export type CategoryEnums = unknown;
+
+export type CategoryAssociations = {
+  films: [FilmFindManyBuilder, FilmPaginateBuilder];
+}
+
+export type CategoryCreateFields = {
+  id?: ID;
+  name: string;
+  lastUpdate?: Date | string;
+};
+
+export type CategoryUpdateFields = {
+  name?: string;
+  lastUpdate?: Date | string;
+};
+
+export type CategoryFindOneBuilder<TSelected extends Pick<CategoryFields, any> = CategoryFields> = FindOneBuilder<
+  'postgres',
+  CategoryFields,
+  CategoryIds,
+  CategoryEnums,
+  CategoryAssociations,
+  TSelected
+>;
+
+export type CategoryFindManyBuilder<TSelected extends Pick<CategoryFields, any> = CategoryFields> = FindManyBuilder<
+  'postgres',
+  CategoryFields,
+  CategoryIds,
+  CategoryEnums,
+  CategoryAssociations,
+  TSelected
+>;
+
+export type CategoryFindByIdBuilder<TSelected extends Pick<CategoryFields, any> = CategoryFields> = FindByIdBuilder<
+  CategoryFields,
+  CategoryIds,
+  CategoryEnums,
+  CategoryAssociations,
+  TSelected
+>;
+
+export type CategoryPaginateBuilder = PaginateBuilder<
+  'postgres',
+  CategoryFields,
+  CategoryIds,
+  CategoryEnums,
+  CategoryAssociations
+>;
+
+export type AddressFields = {
+  id: ID;
+  addressLine: string;
+  addressLine2: string;
+  postalCode: string;
+  city: string;
+  country: string;
+  lastUpdate: string;
+}
+
+export type AddressIds = 'id';
+
+export type AddressEnums = unknown;
+
+export type AddressAssociations = {
+
+}
+
+export type AddressCreateFields = {
+  id: ID;
+  addressLine: string;
+  addressLine2?: string;
+  postalCode?: string;
+  city: string;
+  country: string;
+  lastUpdate: Date | string;
+};
+
+export type AddressUpdateFields = {
+  addressLine?: string;
+  addressLine2?: string;
+  postalCode?: string;
+  city?: string;
+  country?: string;
+  lastUpdate?: Date | string;
+};
+
+export type AddressFindOneBuilder<TSelected extends Pick<AddressFields, any> = AddressFields> = FindOneBuilder<
+  'postgres',
+  AddressFields,
+  AddressIds,
+  AddressEnums,
+  AddressAssociations,
+  TSelected
+>;
+
+export type AddressFindManyBuilder<TSelected extends Pick<AddressFields, any> = AddressFields> = FindManyBuilder<
+  'postgres',
+  AddressFields,
+  AddressIds,
+  AddressEnums,
+  AddressAssociations,
+  TSelected
+>;
+
+export type AddressFindByIdBuilder<TSelected extends Pick<AddressFields, any> = AddressFields> = FindByIdBuilder<
+  AddressFields,
+  AddressIds,
+  AddressEnums,
+  AddressAssociations,
+  TSelected
+>;
+
+export type AddressPaginateBuilder = PaginateBuilder<
+  'postgres',
+  AddressFields,
+  AddressIds,
+  AddressEnums,
+  AddressAssociations
+>;
+
+export type MovieFields = {
+  id: ID;
+  title: string;
+  description: string;
+  releaseYear: number;
+  length: number;
+  rating: FilmRating;
+  rentalRate: number;
+  rentalDuration: number;
+  replacementCost: number;
+  extraData: JSON;
+  lastUpdate: string;
+}
+
+export type MovieIds = 'id';
+
+export type MovieEnums = FilmRating;
+
+export type MovieAssociations = {
+
+}
+
+export type MovieCreateFields = {
+  id?: ID;
+  title: string;
+  description: string;
+  releaseYear: number;
+  length: number;
+  rating: FilmRating;
+  rentalRate: number;
+  rentalDuration: number;
+  replacementCost: number;
+  extraData: JSON;
+  lastUpdate?: Date | string;
+};
+
+export type MovieUpdateFields = {
+  title?: string;
+  description?: string;
+  releaseYear?: number;
+  length?: number;
+  rating?: FilmRating;
+  rentalRate?: number;
+  rentalDuration?: number;
+  replacementCost?: number;
+  extraData?: JSON;
+  lastUpdate?: Date | string;
+};
+
+export type MovieFindOneBuilder<TSelected extends Pick<MovieFields, any> = MovieFields> = FindOneBuilder<
+  'postgres',
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations,
+  TSelected
+>;
+
+export type MovieFindManyBuilder<TSelected extends Pick<MovieFields, any> = MovieFields> = FindManyBuilder<
+  'postgres',
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations,
+  TSelected
+>;
+
+export type MovieFindByIdBuilder<TSelected extends Pick<MovieFields, any> = MovieFields> = FindByIdBuilder<
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations,
+  TSelected
+>;
+
+export type MoviePaginateBuilder = PaginateBuilder<
+  'postgres',
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations
+>;
+
+export type MovieDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations
+>;
+
+export type MovieDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type MovieCreateManyBuilder = CreateManyBuilder<MovieCreateFields>;
+
+export type MovieCreateOneBuilder = CreateOneBuilder<MovieCreateFields>;
+
+export type MovieUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  MovieUpdateFields,
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations
+>;
+
+export type MovieUpdateByIdBuilder = UpdateByIdBuilder<MovieUpdateFields>;
+
+export type PersonFields = {
+  id: ID;
+  firstName: string;
+  lastName: string;
+  lastUpdate: string;
+  email: string;
+}
+
+export type PersonIds = 'id';
+
+export type PersonEnums = unknown;
+
+export type PersonAssociations = {
+  films: [FilmFindManyBuilder, FilmPaginateBuilder];
+  filmsPaginated: [FilmPageFindOneBuilder, FilmPagePaginateBuilder];
+}
+
+export type PersonCreateFields = {
+  id?: ID;
+  firstName: string;
+  lastName: string;
+  lastUpdate?: Date | string;
+  email?: string;
+};
+
+export type PersonUpdateFields = {
+  firstName?: string;
+  lastName?: string;
+  lastUpdate?: Date | string;
+  email?: string;
+};
+
+export type PersonFindOneBuilder<TSelected extends Pick<PersonFields, any> = PersonFields> = FindOneBuilder<
+  'postgres',
+  PersonFields,
+  PersonIds,
+  PersonEnums,
+  PersonAssociations,
+  TSelected
+>;
+
+export type PersonFindManyBuilder<TSelected extends Pick<PersonFields, any> = PersonFields> = FindManyBuilder<
+  'postgres',
+  PersonFields,
+  PersonIds,
+  PersonEnums,
+  PersonAssociations,
+  TSelected
+>;
+
+export type PersonFindByIdBuilder<TSelected extends Pick<PersonFields, any> = PersonFields> = FindByIdBuilder<
+  PersonFields,
+  PersonIds,
+  PersonEnums,
+  PersonAssociations,
+  TSelected
+>;
+
+export type PersonPaginateBuilder = PaginateBuilder<
+  'postgres',
+  PersonFields,
+  PersonIds,
+  PersonEnums,
+  PersonAssociations
+>;
+
+export type SqlmancerClient = Knex & {
+  models: {
+    Actor: {
+      findById: (id: ID) => ActorFindByIdBuilder;
+      findMany: () => ActorFindManyBuilder;
+      findOne: () => ActorFindOneBuilder;
+      paginate: () => ActorPaginateBuilder;
+      createMany: (input: ActorCreateFields[]) => ActorCreateManyBuilder;
+      createOne: (input: ActorCreateFields) => ActorCreateOneBuilder;
+      deleteById: (id: ID) => ActorDeleteByIdBuilder;
+      deleteMany: () => ActorDeleteManyBuilder;
+      updateById: (id: ID, input: ActorUpdateFields) => ActorUpdateByIdBuilder;
+      updateMany: (input: ActorUpdateFields) => ActorUpdateManyBuilder;
+    };
+    Film: {
+      findById: (id: ID) => FilmFindByIdBuilder;
+      findMany: () => FilmFindManyBuilder;
+      findOne: () => FilmFindOneBuilder;
+      paginate: () => FilmPaginateBuilder;
+      createMany: (input: FilmCreateFields[]) => FilmCreateManyBuilder;
+      createOne: (input: FilmCreateFields) => FilmCreateOneBuilder;
+      deleteById: (id: ID) => FilmDeleteByIdBuilder;
+      deleteMany: () => FilmDeleteManyBuilder;
+      updateById: (id: ID, input: FilmUpdateFields) => FilmUpdateByIdBuilder;
+      updateMany: (input: FilmUpdateFields) => FilmUpdateManyBuilder;
+    };
+    Language: {
+      findById: (id: ID) => LanguageFindByIdBuilder;
+      findMany: () => LanguageFindManyBuilder;
+      findOne: () => LanguageFindOneBuilder;
+      paginate: () => LanguagePaginateBuilder;
+      createMany: (input: LanguageCreateFields[]) => LanguageCreateManyBuilder;
+      createOne: (input: LanguageCreateFields) => LanguageCreateOneBuilder;
+      deleteById: (id: ID) => LanguageDeleteByIdBuilder;
+      deleteMany: () => LanguageDeleteManyBuilder;
+      updateById: (id: ID, input: LanguageUpdateFields) => LanguageUpdateByIdBuilder;
+      updateMany: (input: LanguageUpdateFields) => LanguageUpdateManyBuilder;
+    };
+    Customer: {
+      findById: (id: ID) => CustomerFindByIdBuilder;
+      findMany: () => CustomerFindManyBuilder;
+      findOne: () => CustomerFindOneBuilder;
+      paginate: () => CustomerPaginateBuilder;
+      createMany: (input: CustomerCreateFields[]) => CustomerCreateManyBuilder;
+      createOne: (input: CustomerCreateFields) => CustomerCreateOneBuilder;
+      deleteById: (id: ID) => CustomerDeleteByIdBuilder;
+      deleteMany: () => CustomerDeleteManyBuilder;
+      updateById: (id: ID, input: CustomerUpdateFields) => CustomerUpdateByIdBuilder;
+      updateMany: (input: CustomerUpdateFields) => CustomerUpdateManyBuilder;
+    };
+    Category: {
+      findById: (id: ID) => CategoryFindByIdBuilder;
+      findMany: () => CategoryFindManyBuilder;
+      findOne: () => CategoryFindOneBuilder;
+      paginate: () => CategoryPaginateBuilder;
+    };
+    Address: {
+      findById: (id: ID) => AddressFindByIdBuilder;
+      findMany: () => AddressFindManyBuilder;
+      findOne: () => AddressFindOneBuilder;
+      paginate: () => AddressPaginateBuilder;
+    };
+    Movie: {
+      findById: (id: ID) => MovieFindByIdBuilder;
+      findMany: () => MovieFindManyBuilder;
+      findOne: () => MovieFindOneBuilder;
+      paginate: () => MoviePaginateBuilder;
+      createMany: (input: MovieCreateFields[]) => MovieCreateManyBuilder;
+      createOne: (input: MovieCreateFields) => MovieCreateOneBuilder;
+      deleteById: (id: ID) => MovieDeleteByIdBuilder;
+      deleteMany: () => MovieDeleteManyBuilder;
+      updateById: (id: ID, input: MovieUpdateFields) => MovieUpdateByIdBuilder;
+      updateMany: (input: MovieUpdateFields) => MovieUpdateManyBuilder;
+    };
+    Person: {
+      findById: (id: ID) => PersonFindByIdBuilder;
+      findMany: () => PersonFindManyBuilder;
+      findOne: () => PersonFindOneBuilder;
+      paginate: () => PersonPaginateBuilder;
+    };
+  };
+};
+"
+`;
+
+exports[`Sqlmancer Plugin schema without directives Should generate SqlmancerClient and resolver types 1`] = `
+"import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
+export type Maybe<T> = T | null;
+
+
+import {
+  CreateManyBuilder,
+  CreateOneBuilder,
+  DeleteByIdBuilder,
+  DeleteManyBuilder,
+  FindByIdBuilder,
+  FindManyBuilder,
+  FindOneBuilder,
+  PaginateBuilder,
+  UpdateByIdBuilder,
+  UpdateManyBuilder
+} from 'sqlmancer';
+
+import Knex from 'knex';
+
+/** All built-in and custom scalars, mapped to their actual values */
+export type Scalars = {
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
+  DateTime: any;
+  JSON: any;
+  JSONObject: any;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export type SqlmancerCustomScalars = {
+  string?: Maybe<Array<Scalars['String']>>;
+  number?: Maybe<Array<Scalars['String']>>;
+  boolean?: Maybe<Array<Scalars['String']>>;
+  JSON?: Maybe<Array<Scalars['String']>>;
+  Date?: Maybe<Array<Scalars['String']>>;
+};
+
+export type SqlmancerJoinOn = {
+  from: Scalars['String'];
+  to: Scalars['String'];
+};
+
+export enum SqlmancerDialect {
+  POSTGRES = 'POSTGRES',
+  MYSQL = 'MYSQL',
+  MARIADB = 'MARIADB',
+  SQLITE = 'SQLITE'
+}
+
+export enum SqlmancerFieldNameTransformation {
+  CAMEL_CASE = 'CAMEL_CASE',
+  PASCAL_CASE = 'PASCAL_CASE',
+  SNAKE_CASE = 'SNAKE_CASE'
+}
+
+export enum SqlmancerAggregateFunction {
+  avg = 'avg',
+  count = 'count',
+  max = 'max',
+  min = 'min',
+  sum = 'sum'
+}
+
+export enum SqlmancerPaginationKind {
+  OFFSET = 'OFFSET'
+}
+
+export enum SqlmancerInputAction {
+  CREATE = 'CREATE',
+  UPDATE = 'UPDATE'
+}
+
+
+
+
+export type Query = {
+   __typename?: 'Query';
+  actors: Array<Actor>;
+  actor?: Maybe<Actor>;
+  actorsPaginated?: Maybe<Actor>;
+  films: Array<Film>;
+  film?: Maybe<Film>;
+  filmsPaginated?: Maybe<Film>;
+  customers: Array<Customer>;
+  customer?: Maybe<Customer>;
+  addresses: Array<Address>;
+  address?: Maybe<Address>;
+  movies: Array<Movie>;
+  people: Array<Person>;
+};
+
+
+export type QueryActorArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryFilmArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryCustomerArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryAddressArgs = {
+  id: Scalars['ID'];
+};
+
+export type Mutation = {
+   __typename?: 'Mutation';
+  createCustomer?: Maybe<Customer>;
+  createCustomers: Array<Customer>;
+  deleteCustomer: Scalars['Boolean'];
+  deleteCustomers: Scalars['Boolean'];
+  updateCustomer?: Maybe<Customer>;
+  updateCustomers: Array<Customer>;
+};
+
+
+export type MutationDeleteCustomerArgs = {
+  id?: Maybe<Scalars['ID']>;
+};
+
+
+export type MutationUpdateCustomerArgs = {
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type Actor = {
+   __typename?: 'Actor';
+  id: Scalars['ID'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  lastUpdate: Scalars['DateTime'];
+  films: Array<Film>;
+  filmsPaginated?: Maybe<Film>;
+};
+
+export type Film = {
+   __typename?: 'Film';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  releaseYear: Scalars['Int'];
+  length: Scalars['Int'];
+  rating: FilmRating;
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Int'];
+  replacementCost: Scalars['Float'];
+  specialFeatures: Array<Scalars['String']>;
+  extraData: Scalars['JSON'];
+  lastUpdate: Scalars['DateTime'];
+  actors: Array<Actor>;
+  categories: Array<Category>;
+  actorsPaginated?: Maybe<Actor>;
+  language: Language;
+  originalLanguage?: Maybe<Language>;
+  sequel?: Maybe<Film>;
+};
+
+export type Language = {
+   __typename?: 'Language';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  lastUpdate: Scalars['DateTime'];
+  films: Array<Film>;
+  filmsPaginated?: Maybe<Film>;
+};
+
+export type Customer = {
+   __typename?: 'Customer';
+  id: Scalars['ID'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type CreateCustomerPayload = {
+   __typename?: 'CreateCustomerPayload';
+  customer?: Maybe<Film>;
+  message?: Maybe<Scalars['String']>;
+};
+
+export type Category = {
+   __typename?: 'Category';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  lastUpdate: Scalars['DateTime'];
+  films: Array<Film>;
+};
+
+export type Address = {
+   __typename?: 'Address';
+  id: Scalars['ID'];
+  addressLine: Scalars['String'];
+  addressLine2?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  country: Scalars['String'];
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type Movie = {
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  releaseYear: Scalars['Int'];
+  length: Scalars['Int'];
+  rating: FilmRating;
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Int'];
+  replacementCost: Scalars['Float'];
+  extraData: Scalars['JSON'];
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type ShortMovie = Movie & {
+   __typename?: 'ShortMovie';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  releaseYear: Scalars['Int'];
+  length: Scalars['Int'];
+  rating: FilmRating;
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Int'];
+  replacementCost: Scalars['Float'];
+  extraData: Scalars['JSON'];
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type LongMovie = Movie & {
+   __typename?: 'LongMovie';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  releaseYear: Scalars['Int'];
+  length: Scalars['Int'];
+  rating: FilmRating;
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Int'];
+  replacementCost: Scalars['Float'];
+  extraData: Scalars['JSON'];
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type Person = Actor | Customer;
+
+export enum FilmRating {
+  G = 'G',
+  PG = 'PG',
+  PG13 = 'PG13',
+  R = 'R',
+  NC17 = 'NC17'
+}
+
+
+
+
+export type ResolverTypeWrapper<T> = Promise<T> | T;
+
+
+export type StitchingResolver<TResult, TParent, TContext, TArgs> = {
+  fragment: string;
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
+  | ResolverFn<TResult, TParent, TContext, TArgs>
+  | StitchingResolver<TResult, TParent, TContext, TArgs>;
+
+export type ResolverFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Promise<TResult> | TResult;
+
+export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => AsyncIterator<TResult> | Promise<AsyncIterator<TResult>>;
+
+export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
+  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
+}
+
+export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<any, TParent, TContext, TArgs>;
+  resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
+}
+
+export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
+  | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
+  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
+
+export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
+  | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+  | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
+
+export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
+  parent: TParent,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
+
+export type isTypeOfResolverFn<T = {}> = (obj: T, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
+
+export type NextResolverFn<T> = () => Promise<T>;
+
+export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
+  next: NextResolverFn<TResult>,
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+/** Mapping between all available schema types and the resolvers types */
+export type ResolversTypes = {
+  String: ResolverTypeWrapper<Scalars['String']>,
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+  SqlmancerCustomScalars: SqlmancerCustomScalars,
+  SqlmancerJoinOn: SqlmancerJoinOn,
+  SqlmancerDialect: SqlmancerDialect,
+  SqlmancerFieldNameTransformation: SqlmancerFieldNameTransformation,
+  SqlmancerAggregateFunction: SqlmancerAggregateFunction,
+  SqlmancerPaginationKind: SqlmancerPaginationKind,
+  SqlmancerInputAction: SqlmancerInputAction,
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']>,
+  JSON: ResolverTypeWrapper<Scalars['JSON']>,
+  JSONObject: ResolverTypeWrapper<Scalars['JSONObject']>,
+  Query: ResolverTypeWrapper<{}>,
+  ID: ResolverTypeWrapper<Scalars['ID']>,
+  Mutation: ResolverTypeWrapper<{}>,
+  Actor: ResolverTypeWrapper<Actor>,
+  Film: ResolverTypeWrapper<Film>,
+  Int: ResolverTypeWrapper<Scalars['Int']>,
+  Float: ResolverTypeWrapper<Scalars['Float']>,
+  Language: ResolverTypeWrapper<Language>,
+  Customer: ResolverTypeWrapper<Customer>,
+  CreateCustomerPayload: ResolverTypeWrapper<CreateCustomerPayload>,
+  Category: ResolverTypeWrapper<Category>,
+  Address: ResolverTypeWrapper<Address>,
+  Movie: ResolversTypes['ShortMovie'] | ResolversTypes['LongMovie'],
+  ShortMovie: ResolverTypeWrapper<ShortMovie>,
+  LongMovie: ResolverTypeWrapper<LongMovie>,
+  Person: ResolversTypes['Actor'] | ResolversTypes['Customer'],
+  FilmRating: FilmRating,
+};
+
+/** Mapping between all available schema types and the resolvers parents */
+export type ResolversParentTypes = {
+  String: Scalars['String'],
+  Boolean: Scalars['Boolean'],
+  SqlmancerCustomScalars: SqlmancerCustomScalars,
+  SqlmancerJoinOn: SqlmancerJoinOn,
+  SqlmancerDialect: SqlmancerDialect,
+  SqlmancerFieldNameTransformation: SqlmancerFieldNameTransformation,
+  SqlmancerAggregateFunction: SqlmancerAggregateFunction,
+  SqlmancerPaginationKind: SqlmancerPaginationKind,
+  SqlmancerInputAction: SqlmancerInputAction,
+  DateTime: Scalars['DateTime'],
+  JSON: Scalars['JSON'],
+  JSONObject: Scalars['JSONObject'],
+  Query: {},
+  ID: Scalars['ID'],
+  Mutation: {},
+  Actor: Actor,
+  Film: Film,
+  Int: Scalars['Int'],
+  Float: Scalars['Float'],
+  Language: Language,
+  Customer: Customer,
+  CreateCustomerPayload: CreateCustomerPayload,
+  Category: Category,
+  Address: Address,
+  Movie: ResolversParentTypes['ShortMovie'] | ResolversParentTypes['LongMovie'],
+  ShortMovie: ShortMovie,
+  LongMovie: LongMovie,
+  Person: ResolversParentTypes['Actor'] | ResolversParentTypes['Customer'],
+  FilmRating: FilmRating,
+};
+
+export type ColDirectiveArgs = {   name: Scalars['String']; };
+
+export type ColDirectiveResolver<Result, Parent, ContextType = any, Args = ColDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type DependDirectiveArgs = {   on: Array<Scalars['String']>; };
+
+export type DependDirectiveResolver<Result, Parent, ContextType = any, Args = DependDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type HasDefaultDirectiveArgs = {  };
+
+export type HasDefaultDirectiveResolver<Result, Parent, ContextType = any, Args = HasDefaultDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type InputDirectiveArgs = {   action: SqlmancerInputAction;
+  model?: Maybe<Scalars['String']>;
+  list?: Maybe<Scalars['Boolean']>; };
+
+export type InputDirectiveResolver<Result, Parent, ContextType = any, Args = InputDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type IgnoreDirectiveArgs = {  };
+
+export type IgnoreDirectiveResolver<Result, Parent, ContextType = any, Args = IgnoreDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type LimitDirectiveArgs = {  };
+
+export type LimitDirectiveResolver<Result, Parent, ContextType = any, Args = LimitDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type ManyDirectiveArgs = {   model?: Maybe<Scalars['String']>; };
+
+export type ManyDirectiveResolver<Result, Parent, ContextType = any, Args = ManyDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type ModelDirectiveArgs = {   table?: Maybe<Scalars['String']>;
+  cte?: Maybe<Scalars['String']>;
+  pk: Scalars['String'];
+  readOnly?: Maybe<Scalars['Boolean']>;
+  include?: Maybe<Array<Scalars['String']>>; };
+
+export type ModelDirectiveResolver<Result, Parent, ContextType = any, Args = ModelDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type OffsetDirectiveArgs = {  };
+
+export type OffsetDirectiveResolver<Result, Parent, ContextType = any, Args = OffsetDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type OrderByDirectiveArgs = {   model?: Maybe<Scalars['String']>; };
+
+export type OrderByDirectiveResolver<Result, Parent, ContextType = any, Args = OrderByDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type PaginateDirectiveArgs = {  };
+
+export type PaginateDirectiveResolver<Result, Parent, ContextType = any, Args = PaginateDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type PrivateDirectiveArgs = {  };
+
+export type PrivateDirectiveResolver<Result, Parent, ContextType = any, Args = PrivateDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type RelateDirectiveArgs = {   on: Array<SqlmancerJoinOn>;
+  through?: Maybe<Scalars['String']>;
+  pagination?: Maybe<SqlmancerPaginationKind>; };
+
+export type RelateDirectiveResolver<Result, Parent, ContextType = any, Args = RelateDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type SqlmancerDirectiveArgs = {   dialect: SqlmancerDialect;
+  transformFieldNames?: Maybe<SqlmancerFieldNameTransformation>;
+  customScalars?: Maybe<SqlmancerCustomScalars>; };
+
+export type SqlmancerDirectiveResolver<Result, Parent, ContextType = any, Args = SqlmancerDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type ValueDirectiveArgs = {   is: Scalars['String']; };
+
+export type ValueDirectiveResolver<Result, Parent, ContextType = any, Args = ValueDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type WhereDirectiveArgs = {   model?: Maybe<Scalars['String']>; };
+
+export type WhereDirectiveResolver<Result, Parent, ContextType = any, Args = WhereDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime'
+}
+
+export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
+  name: 'JSON'
+}
+
+export interface JsonObjectScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSONObject'], any> {
+  name: 'JSONObject'
+}
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  actors?: Resolver<Array<ResolversTypes['Actor']>, ParentType, ContextType>,
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType, RequireFields<QueryActorArgs, 'id'>>,
+  actorsPaginated?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>,
+  films?: Resolver<Array<ResolversTypes['Film']>, ParentType, ContextType>,
+  film?: Resolver<Maybe<ResolversTypes['Film']>, ParentType, ContextType, RequireFields<QueryFilmArgs, 'id'>>,
+  filmsPaginated?: Resolver<Maybe<ResolversTypes['Film']>, ParentType, ContextType>,
+  customers?: Resolver<Array<ResolversTypes['Customer']>, ParentType, ContextType>,
+  customer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<QueryCustomerArgs, 'id'>>,
+  addresses?: Resolver<Array<ResolversTypes['Address']>, ParentType, ContextType>,
+  address?: Resolver<Maybe<ResolversTypes['Address']>, ParentType, ContextType, RequireFields<QueryAddressArgs, 'id'>>,
+  movies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType>,
+  people?: Resolver<Array<ResolversTypes['Person']>, ParentType, ContextType>,
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createCustomer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType>,
+  createCustomers?: Resolver<Array<ResolversTypes['Customer']>, ParentType, ContextType>,
+  deleteCustomer?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteCustomerArgs, never>>,
+  deleteCustomers?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  updateCustomer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationUpdateCustomerArgs, never>>,
+  updateCustomers?: Resolver<Array<ResolversTypes['Customer']>, ParentType, ContextType>,
+};
+
+export type ActorResolvers<ContextType = any, ParentType extends ResolversParentTypes['Actor'] = ResolversParentTypes['Actor']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  films?: Resolver<Array<ResolversTypes['Film']>, ParentType, ContextType>,
+  filmsPaginated?: Resolver<Maybe<ResolversTypes['Film']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type FilmResolvers<ContextType = any, ParentType extends ResolversParentTypes['Film'] = ResolversParentTypes['Film']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  releaseYear?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  length?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  rating?: Resolver<ResolversTypes['FilmRating'], ParentType, ContextType>,
+  rentalRate?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  rentalDuration?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  replacementCost?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  specialFeatures?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
+  extraData?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  actors?: Resolver<Array<ResolversTypes['Actor']>, ParentType, ContextType>,
+  categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>,
+  actorsPaginated?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>,
+  language?: Resolver<ResolversTypes['Language'], ParentType, ContextType>,
+  originalLanguage?: Resolver<Maybe<ResolversTypes['Language']>, ParentType, ContextType>,
+  sequel?: Resolver<Maybe<ResolversTypes['Film']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type LanguageResolvers<ContextType = any, ParentType extends ResolversParentTypes['Language'] = ResolversParentTypes['Language']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  films?: Resolver<Array<ResolversTypes['Film']>, ParentType, ContextType>,
+  filmsPaginated?: Resolver<Maybe<ResolversTypes['Film']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CustomerResolvers<ContextType = any, ParentType extends ResolversParentTypes['Customer'] = ResolversParentTypes['Customer']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CreateCustomerPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateCustomerPayload'] = ResolversParentTypes['CreateCustomerPayload']> = {
+  customer?: Resolver<Maybe<ResolversTypes['Film']>, ParentType, ContextType>,
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CategoryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  films?: Resolver<Array<ResolversTypes['Film']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type AddressResolvers<ContextType = any, ParentType extends ResolversParentTypes['Address'] = ResolversParentTypes['Address']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  addressLine?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  addressLine2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  postalCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  country?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type MovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['Movie'] = ResolversParentTypes['Movie']> = {
+  __resolveType: TypeResolveFn<'ShortMovie' | 'LongMovie', ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  releaseYear?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  length?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  rating?: Resolver<ResolversTypes['FilmRating'], ParentType, ContextType>,
+  rentalRate?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  rentalDuration?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  replacementCost?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  extraData?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+};
+
+export type ShortMovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['ShortMovie'] = ResolversParentTypes['ShortMovie']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  releaseYear?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  length?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  rating?: Resolver<ResolversTypes['FilmRating'], ParentType, ContextType>,
+  rentalRate?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  rentalDuration?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  replacementCost?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  extraData?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type LongMovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['LongMovie'] = ResolversParentTypes['LongMovie']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  releaseYear?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  length?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  rating?: Resolver<ResolversTypes['FilmRating'], ParentType, ContextType>,
+  rentalRate?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  rentalDuration?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  replacementCost?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  extraData?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>,
+  lastUpdate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type PersonResolvers<ContextType = any, ParentType extends ResolversParentTypes['Person'] = ResolversParentTypes['Person']> = {
+  __resolveType: TypeResolveFn<'Actor' | 'Customer', ParentType, ContextType>
+};
+
+export type Resolvers<ContextType = any> = {
+  DateTime?: GraphQLScalarType,
+  JSON?: GraphQLScalarType,
+  JSONObject?: GraphQLScalarType,
+  Query?: QueryResolvers<ContextType>,
+  Mutation?: MutationResolvers<ContextType>,
+  Actor?: ActorResolvers<ContextType>,
+  Film?: FilmResolvers<ContextType>,
+  Language?: LanguageResolvers<ContextType>,
+  Customer?: CustomerResolvers<ContextType>,
+  CreateCustomerPayload?: CreateCustomerPayloadResolvers<ContextType>,
+  Category?: CategoryResolvers<ContextType>,
+  Address?: AddressResolvers<ContextType>,
+  Movie?: MovieResolvers,
+  ShortMovie?: ShortMovieResolvers<ContextType>,
+  LongMovie?: LongMovieResolvers<ContextType>,
+  Person?: PersonResolvers,
+};
+
+
+/**
+ * @deprecated
+ * Use \\"Resolvers\\" root object instead. If you wish to get \\"IResolvers\\", add \\"typesPrefix: I\\" to your config.
+ */
+export type IResolvers<ContextType = any> = Resolvers<ContextType>;
+export type DirectiveResolvers<ContextType = any> = {
+  col?: ColDirectiveResolver<any, any, ContextType>,
+  depend?: DependDirectiveResolver<any, any, ContextType>,
+  hasDefault?: HasDefaultDirectiveResolver<any, any, ContextType>,
+  input?: InputDirectiveResolver<any, any, ContextType>,
+  ignore?: IgnoreDirectiveResolver<any, any, ContextType>,
+  limit?: LimitDirectiveResolver<any, any, ContextType>,
+  many?: ManyDirectiveResolver<any, any, ContextType>,
+  model?: ModelDirectiveResolver<any, any, ContextType>,
+  offset?: OffsetDirectiveResolver<any, any, ContextType>,
+  orderBy?: OrderByDirectiveResolver<any, any, ContextType>,
+  paginate?: PaginateDirectiveResolver<any, any, ContextType>,
+  private?: PrivateDirectiveResolver<any, any, ContextType>,
+  relate?: RelateDirectiveResolver<any, any, ContextType>,
+  sqlmancer?: SqlmancerDirectiveResolver<any, any, ContextType>,
+  value?: ValueDirectiveResolver<any, any, ContextType>,
+  where?: WhereDirectiveResolver<any, any, ContextType>,
+};
+
+
+/**
+ * @deprecated
+ * Use \\"DirectiveResolvers\\" root object instead. If you wish to get \\"IDirectiveResolvers\\", add \\"typesPrefix: I\\" to your config.
+ */
+export type IDirectiveResolvers<ContextType = any> = DirectiveResolvers<ContextType>;
+
+
+
+export type ID = number | string;
+
+export type JSON = boolean | number | string | null | JSONArray | JSONObject;
+
+export interface JSONObject {
+  [key: string]: JSON;
+}
+
+export type JSONArray = Array<JSON>;
+
+export type ActorFields = {
+  id: ID;
+  firstName: string;
+  lastName: string;
+  lastUpdate: string;
+}
+
+export type ActorIds = 'id';
+
+export type ActorEnums = unknown;
+
+export type ActorAssociations = {
+  films: [FilmFindManyBuilder, FilmPaginateBuilder];
+  filmsPaginated: [FilmFindOneBuilder, FilmPaginateBuilder];
+}
+
+export type ActorCreateFields = {
+  id?: ID;
+  firstName: string;
+  lastName: string;
+  lastUpdate?: Date | string;
+};
+
+export type ActorUpdateFields = {
+  firstName?: string;
+  lastName?: string;
+  lastUpdate?: Date | string;
+};
+
+export type ActorFindOneBuilder<TSelected extends Pick<ActorFields, any> = ActorFields> = FindOneBuilder<
+  'postgres',
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations,
+  TSelected
+>;
+
+export type ActorFindManyBuilder<TSelected extends Pick<ActorFields, any> = ActorFields> = FindManyBuilder<
+  'postgres',
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations,
+  TSelected
+>;
+
+export type ActorFindByIdBuilder<TSelected extends Pick<ActorFields, any> = ActorFields> = FindByIdBuilder<
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations,
+  TSelected
+>;
+
+export type ActorPaginateBuilder = PaginateBuilder<
+  'postgres',
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations
+>;
+
+export type ActorDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations
+>;
+
+export type ActorDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type ActorCreateManyBuilder = CreateManyBuilder<ActorCreateFields>;
+
+export type ActorCreateOneBuilder = CreateOneBuilder<ActorCreateFields>;
+
+export type ActorUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  ActorUpdateFields,
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations
+>;
+
+export type ActorUpdateByIdBuilder = UpdateByIdBuilder<ActorUpdateFields>;
+
+export type FilmFields = {
+  id: ID;
+  title: string;
+  description: string;
+  releaseYear: number;
+  length: number;
+  rating: FilmRating;
+  rentalRate: number;
+  rentalDuration: number;
+  replacementCost: number;
+  specialFeatures: string[];
+  extraData: JSON;
+  lastUpdate: string;
+}
+
+export type FilmIds = 'id';
+
+export type FilmEnums = FilmRating;
+
+export type FilmAssociations = {
+  actors: [ActorFindManyBuilder, ActorPaginateBuilder];
+  categories: [CategoryFindManyBuilder, CategoryPaginateBuilder];
+  actorsPaginated: [ActorFindOneBuilder, ActorPaginateBuilder];
+  language: [LanguageFindOneBuilder, LanguagePaginateBuilder];
+  originalLanguage: [LanguageFindOneBuilder, LanguagePaginateBuilder];
+  sequel: [FilmFindOneBuilder, FilmPaginateBuilder];
+}
+
+export type FilmCreateFields = {
+  id?: ID;
+  title: string;
+  description: string;
+  releaseYear: number;
+  length: number;
+  rating: FilmRating;
+  rentalRate: number;
+  rentalDuration: number;
+  replacementCost: number;
+  specialFeatures: string[];
+  extraData: JSON;
+  lastUpdate?: Date | string;
+};
+
+export type FilmUpdateFields = {
+  title?: string;
+  description?: string;
+  releaseYear?: number;
+  length?: number;
+  rating?: FilmRating;
+  rentalRate?: number;
+  rentalDuration?: number;
+  replacementCost?: number;
+  specialFeatures?: string[];
+  extraData?: JSON;
+  lastUpdate?: Date | string;
+};
+
+export type FilmFindOneBuilder<TSelected extends Pick<FilmFields, any> = FilmFields> = FindOneBuilder<
+  'postgres',
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations,
+  TSelected
+>;
+
+export type FilmFindManyBuilder<TSelected extends Pick<FilmFields, any> = FilmFields> = FindManyBuilder<
+  'postgres',
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations,
+  TSelected
+>;
+
+export type FilmFindByIdBuilder<TSelected extends Pick<FilmFields, any> = FilmFields> = FindByIdBuilder<
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations,
+  TSelected
+>;
+
+export type FilmPaginateBuilder = PaginateBuilder<
+  'postgres',
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations
+>;
+
+export type FilmDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations
+>;
+
+export type FilmDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type FilmCreateManyBuilder = CreateManyBuilder<FilmCreateFields>;
+
+export type FilmCreateOneBuilder = CreateOneBuilder<FilmCreateFields>;
+
+export type FilmUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  FilmUpdateFields,
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations
+>;
+
+export type FilmUpdateByIdBuilder = UpdateByIdBuilder<FilmUpdateFields>;
+
+export type LanguageFields = {
+  id: ID;
+  name: string;
+  lastUpdate: string;
+}
+
+export type LanguageIds = 'id';
+
+export type LanguageEnums = unknown;
+
+export type LanguageAssociations = {
+  films: [FilmFindManyBuilder, FilmPaginateBuilder];
+  filmsPaginated: [FilmFindOneBuilder, FilmPaginateBuilder];
+}
+
+export type LanguageCreateFields = {
+  id?: ID;
+  name: string;
+  lastUpdate?: Date | string;
+};
+
+export type LanguageUpdateFields = {
+  name?: string;
+  lastUpdate?: Date | string;
+};
+
+export type LanguageFindOneBuilder<TSelected extends Pick<LanguageFields, any> = LanguageFields> = FindOneBuilder<
+  'postgres',
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations,
+  TSelected
+>;
+
+export type LanguageFindManyBuilder<TSelected extends Pick<LanguageFields, any> = LanguageFields> = FindManyBuilder<
+  'postgres',
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations,
+  TSelected
+>;
+
+export type LanguageFindByIdBuilder<TSelected extends Pick<LanguageFields, any> = LanguageFields> = FindByIdBuilder<
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations,
+  TSelected
+>;
+
+export type LanguagePaginateBuilder = PaginateBuilder<
+  'postgres',
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations
+>;
+
+export type LanguageDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations
+>;
+
+export type LanguageDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type LanguageCreateManyBuilder = CreateManyBuilder<LanguageCreateFields>;
+
+export type LanguageCreateOneBuilder = CreateOneBuilder<LanguageCreateFields>;
+
+export type LanguageUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  LanguageUpdateFields,
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations
+>;
+
+export type LanguageUpdateByIdBuilder = UpdateByIdBuilder<LanguageUpdateFields>;
+
+export type CustomerFields = {
+  id: ID;
+  firstName: string;
+  lastName: string;
+  email: string;
+  lastUpdate: string;
+}
+
+export type CustomerIds = 'id';
+
+export type CustomerEnums = unknown;
+
+export type CustomerAssociations = {
+
+}
+
+export type CustomerCreateFields = {
+  id?: ID;
+  firstName: string;
+  lastName: string;
+  email?: string;
+  lastUpdate?: Date | string;
+};
+
+export type CustomerUpdateFields = {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  lastUpdate?: Date | string;
+};
+
+export type CustomerFindOneBuilder<TSelected extends Pick<CustomerFields, any> = CustomerFields> = FindOneBuilder<
+  'postgres',
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations,
+  TSelected
+>;
+
+export type CustomerFindManyBuilder<TSelected extends Pick<CustomerFields, any> = CustomerFields> = FindManyBuilder<
+  'postgres',
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations,
+  TSelected
+>;
+
+export type CustomerFindByIdBuilder<TSelected extends Pick<CustomerFields, any> = CustomerFields> = FindByIdBuilder<
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations,
+  TSelected
+>;
+
+export type CustomerPaginateBuilder = PaginateBuilder<
+  'postgres',
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations
+>;
+
+export type CustomerDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations
+>;
+
+export type CustomerDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type CustomerCreateManyBuilder = CreateManyBuilder<CustomerCreateFields>;
+
+export type CustomerCreateOneBuilder = CreateOneBuilder<CustomerCreateFields>;
+
+export type CustomerUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  CustomerUpdateFields,
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations
+>;
+
+export type CustomerUpdateByIdBuilder = UpdateByIdBuilder<CustomerUpdateFields>;
+
+export type CategoryFields = {
+  id: ID;
+  name: string;
+  lastUpdate: string;
+}
+
+export type CategoryIds = 'id';
+
+export type CategoryEnums = unknown;
+
+export type CategoryAssociations = {
+  films: [FilmFindManyBuilder, FilmPaginateBuilder];
+}
+
+export type CategoryCreateFields = {
+  id?: ID;
+  name: string;
+  lastUpdate?: Date | string;
+};
+
+export type CategoryUpdateFields = {
+  name?: string;
+  lastUpdate?: Date | string;
+};
+
+export type CategoryFindOneBuilder<TSelected extends Pick<CategoryFields, any> = CategoryFields> = FindOneBuilder<
+  'postgres',
+  CategoryFields,
+  CategoryIds,
+  CategoryEnums,
+  CategoryAssociations,
+  TSelected
+>;
+
+export type CategoryFindManyBuilder<TSelected extends Pick<CategoryFields, any> = CategoryFields> = FindManyBuilder<
+  'postgres',
+  CategoryFields,
+  CategoryIds,
+  CategoryEnums,
+  CategoryAssociations,
+  TSelected
+>;
+
+export type CategoryFindByIdBuilder<TSelected extends Pick<CategoryFields, any> = CategoryFields> = FindByIdBuilder<
+  CategoryFields,
+  CategoryIds,
+  CategoryEnums,
+  CategoryAssociations,
+  TSelected
+>;
+
+export type CategoryPaginateBuilder = PaginateBuilder<
+  'postgres',
+  CategoryFields,
+  CategoryIds,
+  CategoryEnums,
+  CategoryAssociations
+>;
+
+export type AddressFields = {
+  id: ID;
+  addressLine: string;
+  addressLine2: string;
+  postalCode: string;
+  city: string;
+  country: string;
+  lastUpdate: string;
+}
+
+export type AddressIds = 'id';
+
+export type AddressEnums = unknown;
+
+export type AddressAssociations = {
+
+}
+
+export type AddressCreateFields = {
+  id: ID;
+  addressLine: string;
+  addressLine2?: string;
+  postalCode?: string;
+  city: string;
+  country: string;
+  lastUpdate: Date | string;
+};
+
+export type AddressUpdateFields = {
+  addressLine?: string;
+  addressLine2?: string;
+  postalCode?: string;
+  city?: string;
+  country?: string;
+  lastUpdate?: Date | string;
+};
+
+export type AddressFindOneBuilder<TSelected extends Pick<AddressFields, any> = AddressFields> = FindOneBuilder<
+  'postgres',
+  AddressFields,
+  AddressIds,
+  AddressEnums,
+  AddressAssociations,
+  TSelected
+>;
+
+export type AddressFindManyBuilder<TSelected extends Pick<AddressFields, any> = AddressFields> = FindManyBuilder<
+  'postgres',
+  AddressFields,
+  AddressIds,
+  AddressEnums,
+  AddressAssociations,
+  TSelected
+>;
+
+export type AddressFindByIdBuilder<TSelected extends Pick<AddressFields, any> = AddressFields> = FindByIdBuilder<
+  AddressFields,
+  AddressIds,
+  AddressEnums,
+  AddressAssociations,
+  TSelected
+>;
+
+export type AddressPaginateBuilder = PaginateBuilder<
+  'postgres',
+  AddressFields,
+  AddressIds,
+  AddressEnums,
+  AddressAssociations
+>;
+
+export type MovieFields = {
+  id: ID;
+  title: string;
+  description: string;
+  releaseYear: number;
+  length: number;
+  rating: FilmRating;
+  rentalRate: number;
+  rentalDuration: number;
+  replacementCost: number;
+  extraData: JSON;
+  lastUpdate: string;
+}
+
+export type MovieIds = 'id';
+
+export type MovieEnums = FilmRating;
+
+export type MovieAssociations = {
+
+}
+
+export type MovieCreateFields = {
+  id?: ID;
+  title: string;
+  description: string;
+  releaseYear: number;
+  length: number;
+  rating: FilmRating;
+  rentalRate: number;
+  rentalDuration: number;
+  replacementCost: number;
+  extraData: JSON;
+  lastUpdate?: Date | string;
+};
+
+export type MovieUpdateFields = {
+  title?: string;
+  description?: string;
+  releaseYear?: number;
+  length?: number;
+  rating?: FilmRating;
+  rentalRate?: number;
+  rentalDuration?: number;
+  replacementCost?: number;
+  extraData?: JSON;
+  lastUpdate?: Date | string;
+};
+
+export type MovieFindOneBuilder<TSelected extends Pick<MovieFields, any> = MovieFields> = FindOneBuilder<
+  'postgres',
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations,
+  TSelected
+>;
+
+export type MovieFindManyBuilder<TSelected extends Pick<MovieFields, any> = MovieFields> = FindManyBuilder<
+  'postgres',
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations,
+  TSelected
+>;
+
+export type MovieFindByIdBuilder<TSelected extends Pick<MovieFields, any> = MovieFields> = FindByIdBuilder<
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations,
+  TSelected
+>;
+
+export type MoviePaginateBuilder = PaginateBuilder<
+  'postgres',
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations
+>;
+
+export type MovieDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations
+>;
+
+export type MovieDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type MovieCreateManyBuilder = CreateManyBuilder<MovieCreateFields>;
+
+export type MovieCreateOneBuilder = CreateOneBuilder<MovieCreateFields>;
+
+export type MovieUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  MovieUpdateFields,
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations
+>;
+
+export type MovieUpdateByIdBuilder = UpdateByIdBuilder<MovieUpdateFields>;
+
+export type PersonFields = {
+  id: ID;
+  firstName: string;
+  lastName: string;
+  lastUpdate: string;
+  email: string;
+}
+
+export type PersonIds = 'id';
+
+export type PersonEnums = unknown;
+
+export type PersonAssociations = {
+  films: [FilmFindManyBuilder, FilmPaginateBuilder];
+  filmsPaginated: [FilmFindOneBuilder, FilmPaginateBuilder];
+}
+
+export type PersonCreateFields = {
+  id?: ID;
+  firstName: string;
+  lastName: string;
+  lastUpdate?: Date | string;
+  email?: string;
+};
+
+export type PersonUpdateFields = {
+  firstName?: string;
+  lastName?: string;
+  lastUpdate?: Date | string;
+  email?: string;
+};
+
+export type PersonFindOneBuilder<TSelected extends Pick<PersonFields, any> = PersonFields> = FindOneBuilder<
+  'postgres',
+  PersonFields,
+  PersonIds,
+  PersonEnums,
+  PersonAssociations,
+  TSelected
+>;
+
+export type PersonFindManyBuilder<TSelected extends Pick<PersonFields, any> = PersonFields> = FindManyBuilder<
+  'postgres',
+  PersonFields,
+  PersonIds,
+  PersonEnums,
+  PersonAssociations,
+  TSelected
+>;
+
+export type PersonFindByIdBuilder<TSelected extends Pick<PersonFields, any> = PersonFields> = FindByIdBuilder<
+  PersonFields,
+  PersonIds,
+  PersonEnums,
+  PersonAssociations,
+  TSelected
+>;
+
+export type PersonPaginateBuilder = PaginateBuilder<
+  'postgres',
+  PersonFields,
+  PersonIds,
+  PersonEnums,
+  PersonAssociations
+>;
+
+export type SqlmancerClient = Knex & {
+  models: {
+    Actor: {
+      findById: (id: ID) => ActorFindByIdBuilder;
+      findMany: () => ActorFindManyBuilder;
+      findOne: () => ActorFindOneBuilder;
+      paginate: () => ActorPaginateBuilder;
+      createMany: (input: ActorCreateFields[]) => ActorCreateManyBuilder;
+      createOne: (input: ActorCreateFields) => ActorCreateOneBuilder;
+      deleteById: (id: ID) => ActorDeleteByIdBuilder;
+      deleteMany: () => ActorDeleteManyBuilder;
+      updateById: (id: ID, input: ActorUpdateFields) => ActorUpdateByIdBuilder;
+      updateMany: (input: ActorUpdateFields) => ActorUpdateManyBuilder;
+    };
+    Film: {
+      findById: (id: ID) => FilmFindByIdBuilder;
+      findMany: () => FilmFindManyBuilder;
+      findOne: () => FilmFindOneBuilder;
+      paginate: () => FilmPaginateBuilder;
+      createMany: (input: FilmCreateFields[]) => FilmCreateManyBuilder;
+      createOne: (input: FilmCreateFields) => FilmCreateOneBuilder;
+      deleteById: (id: ID) => FilmDeleteByIdBuilder;
+      deleteMany: () => FilmDeleteManyBuilder;
+      updateById: (id: ID, input: FilmUpdateFields) => FilmUpdateByIdBuilder;
+      updateMany: (input: FilmUpdateFields) => FilmUpdateManyBuilder;
+    };
+    Language: {
+      findById: (id: ID) => LanguageFindByIdBuilder;
+      findMany: () => LanguageFindManyBuilder;
+      findOne: () => LanguageFindOneBuilder;
+      paginate: () => LanguagePaginateBuilder;
+      createMany: (input: LanguageCreateFields[]) => LanguageCreateManyBuilder;
+      createOne: (input: LanguageCreateFields) => LanguageCreateOneBuilder;
+      deleteById: (id: ID) => LanguageDeleteByIdBuilder;
+      deleteMany: () => LanguageDeleteManyBuilder;
+      updateById: (id: ID, input: LanguageUpdateFields) => LanguageUpdateByIdBuilder;
+      updateMany: (input: LanguageUpdateFields) => LanguageUpdateManyBuilder;
+    };
+    Customer: {
+      findById: (id: ID) => CustomerFindByIdBuilder;
+      findMany: () => CustomerFindManyBuilder;
+      findOne: () => CustomerFindOneBuilder;
+      paginate: () => CustomerPaginateBuilder;
+      createMany: (input: CustomerCreateFields[]) => CustomerCreateManyBuilder;
+      createOne: (input: CustomerCreateFields) => CustomerCreateOneBuilder;
+      deleteById: (id: ID) => CustomerDeleteByIdBuilder;
+      deleteMany: () => CustomerDeleteManyBuilder;
+      updateById: (id: ID, input: CustomerUpdateFields) => CustomerUpdateByIdBuilder;
+      updateMany: (input: CustomerUpdateFields) => CustomerUpdateManyBuilder;
+    };
+    Category: {
+      findById: (id: ID) => CategoryFindByIdBuilder;
+      findMany: () => CategoryFindManyBuilder;
+      findOne: () => CategoryFindOneBuilder;
+      paginate: () => CategoryPaginateBuilder;
+    };
+    Address: {
+      findById: (id: ID) => AddressFindByIdBuilder;
+      findMany: () => AddressFindManyBuilder;
+      findOne: () => AddressFindOneBuilder;
+      paginate: () => AddressPaginateBuilder;
+    };
+    Movie: {
+      findById: (id: ID) => MovieFindByIdBuilder;
+      findMany: () => MovieFindManyBuilder;
+      findOne: () => MovieFindOneBuilder;
+      paginate: () => MoviePaginateBuilder;
+      createMany: (input: MovieCreateFields[]) => MovieCreateManyBuilder;
+      createOne: (input: MovieCreateFields) => MovieCreateOneBuilder;
+      deleteById: (id: ID) => MovieDeleteByIdBuilder;
+      deleteMany: () => MovieDeleteManyBuilder;
+      updateById: (id: ID, input: MovieUpdateFields) => MovieUpdateByIdBuilder;
+      updateMany: (input: MovieUpdateFields) => MovieUpdateManyBuilder;
+    };
+    Person: {
+      findById: (id: ID) => PersonFindByIdBuilder;
+      findMany: () => PersonFindManyBuilder;
+      findOne: () => PersonFindOneBuilder;
+      paginate: () => PersonPaginateBuilder;
+    };
+  };
+};
+"
+`;
+
+exports[`Sqlmancer Plugin schema without directives Should generate only SqlmancerClient types 1`] = `
+"export type Maybe<T> = T | null;
+
+
+import {
+  CreateManyBuilder,
+  CreateOneBuilder,
+  DeleteByIdBuilder,
+  DeleteManyBuilder,
+  FindByIdBuilder,
+  FindManyBuilder,
+  FindOneBuilder,
+  PaginateBuilder,
+  UpdateByIdBuilder,
+  UpdateManyBuilder
+} from 'sqlmancer';
+
+import Knex from 'knex';
+
+/** All built-in and custom scalars, mapped to their actual values */
+export type Scalars = {
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
+  DateTime: any;
+  JSON: any;
+  JSONObject: any;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export type SqlmancerCustomScalars = {
+  string?: Maybe<Array<Scalars['String']>>;
+  number?: Maybe<Array<Scalars['String']>>;
+  boolean?: Maybe<Array<Scalars['String']>>;
+  JSON?: Maybe<Array<Scalars['String']>>;
+  Date?: Maybe<Array<Scalars['String']>>;
+};
+
+export type SqlmancerJoinOn = {
+  from: Scalars['String'];
+  to: Scalars['String'];
+};
+
+export enum SqlmancerDialect {
+  POSTGRES = 'POSTGRES',
+  MYSQL = 'MYSQL',
+  MARIADB = 'MARIADB',
+  SQLITE = 'SQLITE'
+}
+
+export enum SqlmancerFieldNameTransformation {
+  CAMEL_CASE = 'CAMEL_CASE',
+  PASCAL_CASE = 'PASCAL_CASE',
+  SNAKE_CASE = 'SNAKE_CASE'
+}
+
+export enum SqlmancerAggregateFunction {
+  avg = 'avg',
+  count = 'count',
+  max = 'max',
+  min = 'min',
+  sum = 'sum'
+}
+
+export enum SqlmancerPaginationKind {
+  OFFSET = 'OFFSET'
+}
+
+export enum SqlmancerInputAction {
+  CREATE = 'CREATE',
+  UPDATE = 'UPDATE'
+}
+
+
+
+
+export type Query = {
+   __typename?: 'Query';
+  actors: Array<Actor>;
+  actor?: Maybe<Actor>;
+  actorsPaginated?: Maybe<Actor>;
+  films: Array<Film>;
+  film?: Maybe<Film>;
+  filmsPaginated?: Maybe<Film>;
+  customers: Array<Customer>;
+  customer?: Maybe<Customer>;
+  addresses: Array<Address>;
+  address?: Maybe<Address>;
+  movies: Array<Movie>;
+  people: Array<Person>;
+};
+
+
+export type QueryActorArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryFilmArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryCustomerArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryAddressArgs = {
+  id: Scalars['ID'];
+};
+
+export type Mutation = {
+   __typename?: 'Mutation';
+  createCustomer?: Maybe<Customer>;
+  createCustomers: Array<Customer>;
+  deleteCustomer: Scalars['Boolean'];
+  deleteCustomers: Scalars['Boolean'];
+  updateCustomer?: Maybe<Customer>;
+  updateCustomers: Array<Customer>;
+};
+
+
+export type MutationDeleteCustomerArgs = {
+  id?: Maybe<Scalars['ID']>;
+};
+
+
+export type MutationUpdateCustomerArgs = {
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type Actor = {
+   __typename?: 'Actor';
+  id: Scalars['ID'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  lastUpdate: Scalars['DateTime'];
+  films: Array<Film>;
+  filmsPaginated?: Maybe<Film>;
+};
+
+export type Film = {
+   __typename?: 'Film';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  releaseYear: Scalars['Int'];
+  length: Scalars['Int'];
+  rating: FilmRating;
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Int'];
+  replacementCost: Scalars['Float'];
+  specialFeatures: Array<Scalars['String']>;
+  extraData: Scalars['JSON'];
+  lastUpdate: Scalars['DateTime'];
+  actors: Array<Actor>;
+  categories: Array<Category>;
+  actorsPaginated?: Maybe<Actor>;
+  language: Language;
+  originalLanguage?: Maybe<Language>;
+  sequel?: Maybe<Film>;
+};
+
+export type Language = {
+   __typename?: 'Language';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  lastUpdate: Scalars['DateTime'];
+  films: Array<Film>;
+  filmsPaginated?: Maybe<Film>;
+};
+
+export type Customer = {
+   __typename?: 'Customer';
+  id: Scalars['ID'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type CreateCustomerPayload = {
+   __typename?: 'CreateCustomerPayload';
+  customer?: Maybe<Film>;
+  message?: Maybe<Scalars['String']>;
+};
+
+export type Category = {
+   __typename?: 'Category';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  lastUpdate: Scalars['DateTime'];
+  films: Array<Film>;
+};
+
+export type Address = {
+   __typename?: 'Address';
+  id: Scalars['ID'];
+  addressLine: Scalars['String'];
+  addressLine2?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  country: Scalars['String'];
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type Movie = {
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  releaseYear: Scalars['Int'];
+  length: Scalars['Int'];
+  rating: FilmRating;
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Int'];
+  replacementCost: Scalars['Float'];
+  extraData: Scalars['JSON'];
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type ShortMovie = Movie & {
+   __typename?: 'ShortMovie';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  releaseYear: Scalars['Int'];
+  length: Scalars['Int'];
+  rating: FilmRating;
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Int'];
+  replacementCost: Scalars['Float'];
+  extraData: Scalars['JSON'];
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type LongMovie = Movie & {
+   __typename?: 'LongMovie';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  releaseYear: Scalars['Int'];
+  length: Scalars['Int'];
+  rating: FilmRating;
+  rentalRate: Scalars['Float'];
+  rentalDuration: Scalars['Int'];
+  replacementCost: Scalars['Float'];
+  extraData: Scalars['JSON'];
+  lastUpdate: Scalars['DateTime'];
+};
+
+export type Person = Actor | Customer;
+
+export enum FilmRating {
+  G = 'G',
+  PG = 'PG',
+  PG13 = 'PG13',
+  R = 'R',
+  NC17 = 'NC17'
+}
+
+
+
+
+
+
+export type ID = number | string;
+
+export type JSON = boolean | number | string | null | JSONArray | JSONObject;
+
+export interface JSONObject {
+  [key: string]: JSON;
+}
+
+export type JSONArray = Array<JSON>;
+
+export type ActorFields = {
+  id: ID;
+  firstName: string;
+  lastName: string;
+  lastUpdate: string;
+}
+
+export type ActorIds = 'id';
+
+export type ActorEnums = unknown;
+
+export type ActorAssociations = {
+  films: [FilmFindManyBuilder, FilmPaginateBuilder];
+  filmsPaginated: [FilmFindOneBuilder, FilmPaginateBuilder];
+}
+
+export type ActorCreateFields = {
+  id?: ID;
+  firstName: string;
+  lastName: string;
+  lastUpdate?: Date | string;
+};
+
+export type ActorUpdateFields = {
+  firstName?: string;
+  lastName?: string;
+  lastUpdate?: Date | string;
+};
+
+export type ActorFindOneBuilder<TSelected extends Pick<ActorFields, any> = ActorFields> = FindOneBuilder<
+  'postgres',
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations,
+  TSelected
+>;
+
+export type ActorFindManyBuilder<TSelected extends Pick<ActorFields, any> = ActorFields> = FindManyBuilder<
+  'postgres',
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations,
+  TSelected
+>;
+
+export type ActorFindByIdBuilder<TSelected extends Pick<ActorFields, any> = ActorFields> = FindByIdBuilder<
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations,
+  TSelected
+>;
+
+export type ActorPaginateBuilder = PaginateBuilder<
+  'postgres',
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations
+>;
+
+export type ActorDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations
+>;
+
+export type ActorDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type ActorCreateManyBuilder = CreateManyBuilder<ActorCreateFields>;
+
+export type ActorCreateOneBuilder = CreateOneBuilder<ActorCreateFields>;
+
+export type ActorUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  ActorUpdateFields,
+  ActorFields,
+  ActorIds,
+  ActorEnums,
+  ActorAssociations
+>;
+
+export type ActorUpdateByIdBuilder = UpdateByIdBuilder<ActorUpdateFields>;
+
+export type FilmFields = {
+  id: ID;
+  title: string;
+  description: string;
+  releaseYear: number;
+  length: number;
+  rating: FilmRating;
+  rentalRate: number;
+  rentalDuration: number;
+  replacementCost: number;
+  specialFeatures: string[];
+  extraData: JSON;
+  lastUpdate: string;
+}
+
+export type FilmIds = 'id';
+
+export type FilmEnums = FilmRating;
+
+export type FilmAssociations = {
+  actors: [ActorFindManyBuilder, ActorPaginateBuilder];
+  categories: [CategoryFindManyBuilder, CategoryPaginateBuilder];
+  actorsPaginated: [ActorFindOneBuilder, ActorPaginateBuilder];
+  language: [LanguageFindOneBuilder, LanguagePaginateBuilder];
+  originalLanguage: [LanguageFindOneBuilder, LanguagePaginateBuilder];
+  sequel: [FilmFindOneBuilder, FilmPaginateBuilder];
+}
+
+export type FilmCreateFields = {
+  id?: ID;
+  title: string;
+  description: string;
+  releaseYear: number;
+  length: number;
+  rating: FilmRating;
+  rentalRate: number;
+  rentalDuration: number;
+  replacementCost: number;
+  specialFeatures: string[];
+  extraData: JSON;
+  lastUpdate?: Date | string;
+};
+
+export type FilmUpdateFields = {
+  title?: string;
+  description?: string;
+  releaseYear?: number;
+  length?: number;
+  rating?: FilmRating;
+  rentalRate?: number;
+  rentalDuration?: number;
+  replacementCost?: number;
+  specialFeatures?: string[];
+  extraData?: JSON;
+  lastUpdate?: Date | string;
+};
+
+export type FilmFindOneBuilder<TSelected extends Pick<FilmFields, any> = FilmFields> = FindOneBuilder<
+  'postgres',
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations,
+  TSelected
+>;
+
+export type FilmFindManyBuilder<TSelected extends Pick<FilmFields, any> = FilmFields> = FindManyBuilder<
+  'postgres',
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations,
+  TSelected
+>;
+
+export type FilmFindByIdBuilder<TSelected extends Pick<FilmFields, any> = FilmFields> = FindByIdBuilder<
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations,
+  TSelected
+>;
+
+export type FilmPaginateBuilder = PaginateBuilder<
+  'postgres',
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations
+>;
+
+export type FilmDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations
+>;
+
+export type FilmDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type FilmCreateManyBuilder = CreateManyBuilder<FilmCreateFields>;
+
+export type FilmCreateOneBuilder = CreateOneBuilder<FilmCreateFields>;
+
+export type FilmUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  FilmUpdateFields,
+  FilmFields,
+  FilmIds,
+  FilmEnums,
+  FilmAssociations
+>;
+
+export type FilmUpdateByIdBuilder = UpdateByIdBuilder<FilmUpdateFields>;
+
+export type LanguageFields = {
+  id: ID;
+  name: string;
+  lastUpdate: string;
+}
+
+export type LanguageIds = 'id';
+
+export type LanguageEnums = unknown;
+
+export type LanguageAssociations = {
+  films: [FilmFindManyBuilder, FilmPaginateBuilder];
+  filmsPaginated: [FilmFindOneBuilder, FilmPaginateBuilder];
+}
+
+export type LanguageCreateFields = {
+  id?: ID;
+  name: string;
+  lastUpdate?: Date | string;
+};
+
+export type LanguageUpdateFields = {
+  name?: string;
+  lastUpdate?: Date | string;
+};
+
+export type LanguageFindOneBuilder<TSelected extends Pick<LanguageFields, any> = LanguageFields> = FindOneBuilder<
+  'postgres',
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations,
+  TSelected
+>;
+
+export type LanguageFindManyBuilder<TSelected extends Pick<LanguageFields, any> = LanguageFields> = FindManyBuilder<
+  'postgres',
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations,
+  TSelected
+>;
+
+export type LanguageFindByIdBuilder<TSelected extends Pick<LanguageFields, any> = LanguageFields> = FindByIdBuilder<
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations,
+  TSelected
+>;
+
+export type LanguagePaginateBuilder = PaginateBuilder<
+  'postgres',
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations
+>;
+
+export type LanguageDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations
+>;
+
+export type LanguageDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type LanguageCreateManyBuilder = CreateManyBuilder<LanguageCreateFields>;
+
+export type LanguageCreateOneBuilder = CreateOneBuilder<LanguageCreateFields>;
+
+export type LanguageUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  LanguageUpdateFields,
+  LanguageFields,
+  LanguageIds,
+  LanguageEnums,
+  LanguageAssociations
+>;
+
+export type LanguageUpdateByIdBuilder = UpdateByIdBuilder<LanguageUpdateFields>;
+
+export type CustomerFields = {
+  id: ID;
+  firstName: string;
+  lastName: string;
+  email: string;
+  lastUpdate: string;
+}
+
+export type CustomerIds = 'id';
+
+export type CustomerEnums = unknown;
+
+export type CustomerAssociations = {
+
+}
+
+export type CustomerCreateFields = {
+  id?: ID;
+  firstName: string;
+  lastName: string;
+  email?: string;
+  lastUpdate?: Date | string;
+};
+
+export type CustomerUpdateFields = {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  lastUpdate?: Date | string;
+};
+
+export type CustomerFindOneBuilder<TSelected extends Pick<CustomerFields, any> = CustomerFields> = FindOneBuilder<
+  'postgres',
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations,
+  TSelected
+>;
+
+export type CustomerFindManyBuilder<TSelected extends Pick<CustomerFields, any> = CustomerFields> = FindManyBuilder<
+  'postgres',
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations,
+  TSelected
+>;
+
+export type CustomerFindByIdBuilder<TSelected extends Pick<CustomerFields, any> = CustomerFields> = FindByIdBuilder<
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations,
+  TSelected
+>;
+
+export type CustomerPaginateBuilder = PaginateBuilder<
+  'postgres',
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations
+>;
+
+export type CustomerDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations
+>;
+
+export type CustomerDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type CustomerCreateManyBuilder = CreateManyBuilder<CustomerCreateFields>;
+
+export type CustomerCreateOneBuilder = CreateOneBuilder<CustomerCreateFields>;
+
+export type CustomerUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  CustomerUpdateFields,
+  CustomerFields,
+  CustomerIds,
+  CustomerEnums,
+  CustomerAssociations
+>;
+
+export type CustomerUpdateByIdBuilder = UpdateByIdBuilder<CustomerUpdateFields>;
+
+export type CategoryFields = {
+  id: ID;
+  name: string;
+  lastUpdate: string;
+}
+
+export type CategoryIds = 'id';
+
+export type CategoryEnums = unknown;
+
+export type CategoryAssociations = {
+  films: [FilmFindManyBuilder, FilmPaginateBuilder];
+}
+
+export type CategoryCreateFields = {
+  id?: ID;
+  name: string;
+  lastUpdate?: Date | string;
+};
+
+export type CategoryUpdateFields = {
+  name?: string;
+  lastUpdate?: Date | string;
+};
+
+export type CategoryFindOneBuilder<TSelected extends Pick<CategoryFields, any> = CategoryFields> = FindOneBuilder<
+  'postgres',
+  CategoryFields,
+  CategoryIds,
+  CategoryEnums,
+  CategoryAssociations,
+  TSelected
+>;
+
+export type CategoryFindManyBuilder<TSelected extends Pick<CategoryFields, any> = CategoryFields> = FindManyBuilder<
+  'postgres',
+  CategoryFields,
+  CategoryIds,
+  CategoryEnums,
+  CategoryAssociations,
+  TSelected
+>;
+
+export type CategoryFindByIdBuilder<TSelected extends Pick<CategoryFields, any> = CategoryFields> = FindByIdBuilder<
+  CategoryFields,
+  CategoryIds,
+  CategoryEnums,
+  CategoryAssociations,
+  TSelected
+>;
+
+export type CategoryPaginateBuilder = PaginateBuilder<
+  'postgres',
+  CategoryFields,
+  CategoryIds,
+  CategoryEnums,
+  CategoryAssociations
+>;
+
+export type AddressFields = {
+  id: ID;
+  addressLine: string;
+  addressLine2: string;
+  postalCode: string;
+  city: string;
+  country: string;
+  lastUpdate: string;
+}
+
+export type AddressIds = 'id';
+
+export type AddressEnums = unknown;
+
+export type AddressAssociations = {
+
+}
+
+export type AddressCreateFields = {
+  id: ID;
+  addressLine: string;
+  addressLine2?: string;
+  postalCode?: string;
+  city: string;
+  country: string;
+  lastUpdate: Date | string;
+};
+
+export type AddressUpdateFields = {
+  addressLine?: string;
+  addressLine2?: string;
+  postalCode?: string;
+  city?: string;
+  country?: string;
+  lastUpdate?: Date | string;
+};
+
+export type AddressFindOneBuilder<TSelected extends Pick<AddressFields, any> = AddressFields> = FindOneBuilder<
+  'postgres',
+  AddressFields,
+  AddressIds,
+  AddressEnums,
+  AddressAssociations,
+  TSelected
+>;
+
+export type AddressFindManyBuilder<TSelected extends Pick<AddressFields, any> = AddressFields> = FindManyBuilder<
+  'postgres',
+  AddressFields,
+  AddressIds,
+  AddressEnums,
+  AddressAssociations,
+  TSelected
+>;
+
+export type AddressFindByIdBuilder<TSelected extends Pick<AddressFields, any> = AddressFields> = FindByIdBuilder<
+  AddressFields,
+  AddressIds,
+  AddressEnums,
+  AddressAssociations,
+  TSelected
+>;
+
+export type AddressPaginateBuilder = PaginateBuilder<
+  'postgres',
+  AddressFields,
+  AddressIds,
+  AddressEnums,
+  AddressAssociations
+>;
+
+export type MovieFields = {
+  id: ID;
+  title: string;
+  description: string;
+  releaseYear: number;
+  length: number;
+  rating: FilmRating;
+  rentalRate: number;
+  rentalDuration: number;
+  replacementCost: number;
+  extraData: JSON;
+  lastUpdate: string;
+}
+
+export type MovieIds = 'id';
+
+export type MovieEnums = FilmRating;
+
+export type MovieAssociations = {
+
+}
+
+export type MovieCreateFields = {
+  id?: ID;
+  title: string;
+  description: string;
+  releaseYear: number;
+  length: number;
+  rating: FilmRating;
+  rentalRate: number;
+  rentalDuration: number;
+  replacementCost: number;
+  extraData: JSON;
+  lastUpdate?: Date | string;
+};
+
+export type MovieUpdateFields = {
+  title?: string;
+  description?: string;
+  releaseYear?: number;
+  length?: number;
+  rating?: FilmRating;
+  rentalRate?: number;
+  rentalDuration?: number;
+  replacementCost?: number;
+  extraData?: JSON;
+  lastUpdate?: Date | string;
+};
+
+export type MovieFindOneBuilder<TSelected extends Pick<MovieFields, any> = MovieFields> = FindOneBuilder<
+  'postgres',
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations,
+  TSelected
+>;
+
+export type MovieFindManyBuilder<TSelected extends Pick<MovieFields, any> = MovieFields> = FindManyBuilder<
+  'postgres',
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations,
+  TSelected
+>;
+
+export type MovieFindByIdBuilder<TSelected extends Pick<MovieFields, any> = MovieFields> = FindByIdBuilder<
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations,
+  TSelected
+>;
+
+export type MoviePaginateBuilder = PaginateBuilder<
+  'postgres',
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations
+>;
+
+export type MovieDeleteManyBuilder = DeleteManyBuilder<
+  'postgres',
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations
+>;
+
+export type MovieDeleteByIdBuilder = DeleteByIdBuilder;
+
+export type MovieCreateManyBuilder = CreateManyBuilder<MovieCreateFields>;
+
+export type MovieCreateOneBuilder = CreateOneBuilder<MovieCreateFields>;
+
+export type MovieUpdateManyBuilder = UpdateManyBuilder<
+  'postgres',
+  MovieUpdateFields,
+  MovieFields,
+  MovieIds,
+  MovieEnums,
+  MovieAssociations
+>;
+
+export type MovieUpdateByIdBuilder = UpdateByIdBuilder<MovieUpdateFields>;
+
+export type PersonFields = {
+  id: ID;
+  firstName: string;
+  lastName: string;
+  lastUpdate: string;
+  email: string;
+}
+
+export type PersonIds = 'id';
+
+export type PersonEnums = unknown;
+
+export type PersonAssociations = {
+  films: [FilmFindManyBuilder, FilmPaginateBuilder];
+  filmsPaginated: [FilmFindOneBuilder, FilmPaginateBuilder];
+}
+
+export type PersonCreateFields = {
+  id?: ID;
+  firstName: string;
+  lastName: string;
+  lastUpdate?: Date | string;
+  email?: string;
+};
+
+export type PersonUpdateFields = {
+  firstName?: string;
+  lastName?: string;
+  lastUpdate?: Date | string;
+  email?: string;
+};
+
+export type PersonFindOneBuilder<TSelected extends Pick<PersonFields, any> = PersonFields> = FindOneBuilder<
+  'postgres',
+  PersonFields,
+  PersonIds,
+  PersonEnums,
+  PersonAssociations,
+  TSelected
+>;
+
+export type PersonFindManyBuilder<TSelected extends Pick<PersonFields, any> = PersonFields> = FindManyBuilder<
+  'postgres',
+  PersonFields,
+  PersonIds,
+  PersonEnums,
+  PersonAssociations,
+  TSelected
+>;
+
+export type PersonFindByIdBuilder<TSelected extends Pick<PersonFields, any> = PersonFields> = FindByIdBuilder<
+  PersonFields,
+  PersonIds,
+  PersonEnums,
+  PersonAssociations,
+  TSelected
+>;
+
+export type PersonPaginateBuilder = PaginateBuilder<
+  'postgres',
+  PersonFields,
+  PersonIds,
+  PersonEnums,
+  PersonAssociations
+>;
+
+export type SqlmancerClient = Knex & {
+  models: {
+    Actor: {
+      findById: (id: ID) => ActorFindByIdBuilder;
+      findMany: () => ActorFindManyBuilder;
+      findOne: () => ActorFindOneBuilder;
+      paginate: () => ActorPaginateBuilder;
+      createMany: (input: ActorCreateFields[]) => ActorCreateManyBuilder;
+      createOne: (input: ActorCreateFields) => ActorCreateOneBuilder;
+      deleteById: (id: ID) => ActorDeleteByIdBuilder;
+      deleteMany: () => ActorDeleteManyBuilder;
+      updateById: (id: ID, input: ActorUpdateFields) => ActorUpdateByIdBuilder;
+      updateMany: (input: ActorUpdateFields) => ActorUpdateManyBuilder;
+    };
+    Film: {
+      findById: (id: ID) => FilmFindByIdBuilder;
+      findMany: () => FilmFindManyBuilder;
+      findOne: () => FilmFindOneBuilder;
+      paginate: () => FilmPaginateBuilder;
+      createMany: (input: FilmCreateFields[]) => FilmCreateManyBuilder;
+      createOne: (input: FilmCreateFields) => FilmCreateOneBuilder;
+      deleteById: (id: ID) => FilmDeleteByIdBuilder;
+      deleteMany: () => FilmDeleteManyBuilder;
+      updateById: (id: ID, input: FilmUpdateFields) => FilmUpdateByIdBuilder;
+      updateMany: (input: FilmUpdateFields) => FilmUpdateManyBuilder;
+    };
+    Language: {
+      findById: (id: ID) => LanguageFindByIdBuilder;
+      findMany: () => LanguageFindManyBuilder;
+      findOne: () => LanguageFindOneBuilder;
+      paginate: () => LanguagePaginateBuilder;
+      createMany: (input: LanguageCreateFields[]) => LanguageCreateManyBuilder;
+      createOne: (input: LanguageCreateFields) => LanguageCreateOneBuilder;
+      deleteById: (id: ID) => LanguageDeleteByIdBuilder;
+      deleteMany: () => LanguageDeleteManyBuilder;
+      updateById: (id: ID, input: LanguageUpdateFields) => LanguageUpdateByIdBuilder;
+      updateMany: (input: LanguageUpdateFields) => LanguageUpdateManyBuilder;
+    };
+    Customer: {
+      findById: (id: ID) => CustomerFindByIdBuilder;
+      findMany: () => CustomerFindManyBuilder;
+      findOne: () => CustomerFindOneBuilder;
+      paginate: () => CustomerPaginateBuilder;
+      createMany: (input: CustomerCreateFields[]) => CustomerCreateManyBuilder;
+      createOne: (input: CustomerCreateFields) => CustomerCreateOneBuilder;
+      deleteById: (id: ID) => CustomerDeleteByIdBuilder;
+      deleteMany: () => CustomerDeleteManyBuilder;
+      updateById: (id: ID, input: CustomerUpdateFields) => CustomerUpdateByIdBuilder;
+      updateMany: (input: CustomerUpdateFields) => CustomerUpdateManyBuilder;
+    };
+    Category: {
+      findById: (id: ID) => CategoryFindByIdBuilder;
+      findMany: () => CategoryFindManyBuilder;
+      findOne: () => CategoryFindOneBuilder;
+      paginate: () => CategoryPaginateBuilder;
+    };
+    Address: {
+      findById: (id: ID) => AddressFindByIdBuilder;
+      findMany: () => AddressFindManyBuilder;
+      findOne: () => AddressFindOneBuilder;
+      paginate: () => AddressPaginateBuilder;
+    };
+    Movie: {
+      findById: (id: ID) => MovieFindByIdBuilder;
+      findMany: () => MovieFindManyBuilder;
+      findOne: () => MovieFindOneBuilder;
+      paginate: () => MoviePaginateBuilder;
+      createMany: (input: MovieCreateFields[]) => MovieCreateManyBuilder;
+      createOne: (input: MovieCreateFields) => MovieCreateOneBuilder;
+      deleteById: (id: ID) => MovieDeleteByIdBuilder;
+      deleteMany: () => MovieDeleteManyBuilder;
+      updateById: (id: ID, input: MovieUpdateFields) => MovieUpdateByIdBuilder;
+      updateMany: (input: MovieUpdateFields) => MovieUpdateManyBuilder;
+    };
+    Person: {
+      findById: (id: ID) => PersonFindByIdBuilder;
+      findMany: () => PersonFindManyBuilder;
+      findOne: () => PersonFindOneBuilder;
+      paginate: () => PersonPaginateBuilder;
+    };
+  };
+};
+"
+`;
